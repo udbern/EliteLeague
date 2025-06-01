@@ -40,9 +40,6 @@ const StandingsTableForm = ({ title }) => {
 
   return (
     <section className="mb-[12px] font-montserrat pl-1 pr-1 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
-      <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#36053A]/80 mb-[12px]">
-        {title || `${selectedSeason?.name} Form`}
-      </h2>
       <div className="overflow-x-auto">
         <table className="w-full font-montserrat font-semibold text-[10px] sm:text-xs md:text-sm">
           <thead>
