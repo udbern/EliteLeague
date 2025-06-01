@@ -1,26 +1,33 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Font families using CSS variables from next/font */
+  --font-montserrat: var(--font-montserrat);
+  --font-mukta: var(--font-mukta);
+  --font-raleway: var(--font-raleway);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background-image: url('../assets//bgbody.png');
+    background-size: cover; /* or contain, depending on your preference */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* keeps the image fixed during scroll */
+    background-color: #d9d9d9; /* changed to a lighter gray background */
+    /* Set default font */
+    font-family: var(--font-montserrat);
+}
+
+/* Utility classes for fonts */
+.font-montserrat {
+    font-family: var(--font-montserrat);
+}
+
+.font-mukta {
+    font-family: var(--font-mukta);
+}
+
+.font-raleway {
+    font-family: var(--font-raleway);
 }
