@@ -23,7 +23,7 @@ export default function FixturesPage() {
 
     const fetchFixtures = async () => {
       setLoading(true);
-      const query = `*[_type == "fixture" && season._ref == $seasonId] | order(date asc)[0...50] {
+      const query = `*[_type == "fixture" && season._ref == $seasonId] | order(date asc) {
         _id,
         date,
         status,

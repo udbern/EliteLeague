@@ -151,7 +151,7 @@ export default function TopScorers() {
       </h2>
       <hr className="mb-2 text-[#36053A]/80" />
       <div className="">
-        <div className={`overflow-hidden font-montserrat ${showAll ? 'max-h-[400px] overflow-y-auto custom-scrollbar' : ''}`}>
+      <div className={`overflow-hidden font-montserrat ${showAll ? 'max-h-[450px] md:max-h-[550px] overflow-y-auto custom-scrollbar' : ''}`}>
           <table className="w-full">
             <thead className="bg-white/10 sticky top-0 z-10">
               <tr>
