@@ -5,6 +5,7 @@ import fetchStandings from "../../lib/fetchStandings";
 import { TableHeader, TableCell, FormIndicator } from "./TableHelpers";
 import { urlFor } from "@/lib/sanityClient";
 import { useSeason } from "@/components/SeasonProvider";
+import "./loader.css";
 
 const StandingsTableForm = ({ title }) => {
   const [standings, setStandings] = useState([]);
@@ -32,7 +33,7 @@ const StandingsTableForm = ({ title }) => {
     return (
       <section className="mb-[12px] pl-2 pr-2 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] font-montserrat overflow-hidden backdrop-blur-sm">
         <div className="flex justify-center items-center py-4">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#36053A]"></div>
+        <span className="loader"></span>
         </div>
       </section>
     );

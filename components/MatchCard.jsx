@@ -52,13 +52,13 @@ export const MatchCard = ({ match }) => {
       </div>
 
       <div className="flex items-center justify-between  mb-5 font-montserrat">
-        <div className="flex flex-col items-center w-1/3 font-montserrat">
+        <div className="flex flex-col items-center w-1/3  p-2 font-montserrat">
           <Image
             src={getImageSrc(match.homeLogo)}
             alt={match.homeTeam}
             width={48}
             height={48}
-            className="w-10 h-10 sm:w-12 sm:h-12  rounded-full overflow-hidden object-center  object-cover  mb-2"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full  object-center  object-cover  mb-2"
           />
           <span className="text-xs sm:text-sm text-[#36053A]/80 text-center font-semibold font-montserrat">{match.homeTeam}</span>
         </div>

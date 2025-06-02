@@ -5,6 +5,7 @@ import { TableHeader, TableCell } from "./TableHelpers";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanityClient";
 import { useSeason } from "@/components/SeasonProvider";
+import "./loader.css";
 
 const StandingsTableShort = ({ title }) => {
   const [standings, setStandings] = useState([]);
@@ -44,7 +45,7 @@ const StandingsTableShort = ({ title }) => {
     return (
       <section className="mb-[12px] pl-1 pr-1 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
         <div className="flex justify-center items-center py-4">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#36053A]"></div>
+        <span className="loader"></span>
         </div>
       </section>
     );

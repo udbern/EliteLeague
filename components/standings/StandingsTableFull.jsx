@@ -5,6 +5,7 @@ import fetchStandings from "../../lib/fetchStandings";
 import { urlFor } from "@/lib/sanityClient";
 import { TableHeader, TableCell } from "./TableHelpers";
 import { useSeason } from "@/components/SeasonProvider";
+import "./loader.css";
 
 const StandingsPage = () => {
   const [standings, setStandings] = useState([]);
@@ -43,7 +44,7 @@ const StandingsPage = () => {
     return (
       <section className="mb-[12px] pl-1 pr-1 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
         <div className="flex justify-center items-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#36053A]"></div>
+        <span className="loader"></span>
         </div>
       </section>
     );
@@ -87,7 +88,7 @@ const StandingsTableFull = ({ data, title, getImageSrc }) => {
                           height={20}
                           className="rounded-full object-contain w-[16px] h-[16px] md:w-[24px] md:h-[24px]"
                         />
-                        <span className="font-semibold text-[10px] md:text-base truncate max-w-[100px] md:max-w-full">{team.name}</span>
+                        <span className="font-semibold text-[10px] md:text-base truncate max-w-[100px] md:max-w-full">{team.shortName}</span>
                       </div>
                     </TableCell>
                     <TableCell>{team.played}</TableCell>

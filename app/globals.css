@@ -14,9 +14,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed; /* keeps the image fixed during scroll */
-    background-color: #d9d9d9; /* changed to a lighter gray background */
-    /* Set default font */
-    font-family: var(--font-montserrat);
+    background-color: #e4dbdb; 
 }
 
 /* Utility classes for fonts */

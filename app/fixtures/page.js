@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import "./loader.css";
 
 export default function FixturesPage() {
   const [fixtures, setFixtures] = useState([]);
@@ -49,20 +50,24 @@ export default function FixturesPage() {
     fetchFixtures();
   }, [selectedSeason]);
 
-  const allRounds = [...new Set(fixtures.map((f) => f.round))].sort((a, b) => a.localeCompare(b));
+  const allRounds = [...new Set(fixtures.map((f) => f.round))].sort((a, b) => {
+    const numA = parseInt(a.replace(/\D/g, ''));
+    const numB = parseInt(b.replace(/\D/g, ''));
+    return numA - numB;
+  });
   const filteredMatches = fixtures.filter((m) => m.round === selectedRound);
 
   return (
-    <div className="container mx-auto px-4 py-15 flex justify-center font-montserrat">
+    <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
       <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
-        <div className="flex justify-center items-center mb-10">
+        <div className="flex justify-center items-center mt-10 mb-10">
           <DropdownMenu className="">
-            <DropdownMenuTrigger className="px-3 py-1.5 bg-white text-gray-700 rounded-md border hover:bg-gray-200 text-sm font-montserrat">
+            <DropdownMenuTrigger className="px-3 py-1.5 bg-white text-[#36053A]/80 rounded-md border focus:outline-none hover:bg-gray-200 text-sm font-montserrat">
               {selectedRound || "Select Round"}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white rounded-md shadow-md">
+            <DropdownMenuContent className="bg-white rounded-md border  border-[#36053A]/40 ">
               {allRounds.map((round) => (
-                <DropdownMenuItem key={round} onClick={() => setSelectedRound(round)} className="text-sm font-montserrat">
+                <DropdownMenuItem key={round} onClick={() => setSelectedRound(round)} className="text-sm  hover:bg-[#36053A]/20  font-semibold font-montserrat text-[#36053A]/80">
                   {round}
                 </DropdownMenuItem>
               ))}
@@ -72,7 +77,7 @@ export default function FixturesPage() {
 
         {loading ? (
           <div className="flex justify-center items-center py-6">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-800"></div>
+            <span className="loader"></span>
           </div>
         ) : filteredMatches.length > 0 ? (
           <div className="space-y-3">

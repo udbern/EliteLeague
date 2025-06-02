@@ -7,6 +7,7 @@ import { urlFor } from "../../lib/sanityClient";
 import Image from "next/image";
 import { useSeason } from "@/components/SeasonProvider";
 import { Button } from "@/components/ui/button";
+import "./loader.css";
 
 const TableHeader = ({ children, className = "" }) => (
   <th
@@ -115,13 +116,13 @@ export default function TopScorers() {
   useEffect(() => {
     const loadScorers = async () => {
       if (!selectedSeason?._id) return;
-      
+
       setLoading(true);
       try {
         const data = await fetchTopScorers(selectedSeason._id);
         setScorers(data);
       } catch (error) {
-        console.error('Error loading scorers:', error);
+        console.error("Error loading scorers:", error);
       } finally {
         setLoading(false);
       }
@@ -137,7 +138,7 @@ export default function TopScorers() {
     return (
       <section className="mb-8 sm:mb-10 md:mb-12 font-montserrat p-4 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
         <div className="flex justify-center items-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#36053A]"></div>
+        <span className="loader"></span>
         </div>
       </section>
     );
@@ -150,11 +151,13 @@ export default function TopScorers() {
       </h2>
       <hr className="mb-2 text-[#36053A]/80" />
       <div className="">
-        <div className="overflow-x-auto font-montserrat">
+        <div className="overflow-hidden font-montserrat">
           <table className="w-full">
             <thead className="bg-white/10">
               <tr>
-                <TableHeader className="w-8 sm:w-10 md:w-12 text-start">Pos</TableHeader>
+                <TableHeader className="w-8 sm:w-10 md:w-12 text-start">
+                  Pos
+                </TableHeader>
                 <TableHeader>Player</TableHeader>
                 <TableHeader>Club</TableHeader>
                 <TableHeader className="text-start">Goals</TableHeader>
