@@ -65,9 +65,13 @@ export default function FixturesPage() {
             <DropdownMenuTrigger className="px-3 py-1.5 bg-white text-[#36053A]/80 rounded-md border focus:outline-none hover:bg-gray-200 text-sm font-montserrat">
               {selectedRound || "Select Round"}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white rounded-md border  border-[#36053A]/40 ">
+            <DropdownMenuContent className="bg-white rounded-md border border-[#36053A]/40 max-h-[320px] overflow-y-auto custom-scrollbar">
               {allRounds.map((round) => (
-                <DropdownMenuItem key={round} onClick={() => setSelectedRound(round)} className="text-sm  hover:bg-[#36053A]/20  font-semibold font-montserrat text-[#36053A]/80">
+                <DropdownMenuItem 
+                  key={round} 
+                  onClick={() => setSelectedRound(round)} 
+                  className="text-sm hover:bg-[#36053A]/20 font-semibold font-montserrat text-[#36053A]/80"
+                >
                   {round}
                 </DropdownMenuItem>
               ))}
@@ -105,4 +109,29 @@ export default function FixturesPage() {
       </div>
     </div>
   );
+}
+
+const customScrollbarStyles = `
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #36053A40;
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #36053A60;
+  }
+`;
+
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = customScrollbarStyles;
+  document.head.appendChild(styleSheet);
 }
