@@ -41,7 +41,7 @@ const Header = () => {
     >
       <nav className="bg-gradient-to-br from-[#622085] via-[#A112BA] to-[#0f5c4f]">
         {/* Top Bar */}
-        <div className="flex justify-between items-center px-3 py-6 md:px-4 md:max-w-5xl md:mx-auto">
+        <div className="flex justify-between items-center px-3 py-6 md:py-3 md:px-4 md:max-w-5xl md:mx-auto">
           {/* Logo Section */}
           <div className="flex items-center">
             <Logo className="h-10 mr-4" />

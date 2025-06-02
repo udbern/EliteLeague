@@ -129,8 +129,8 @@ export default function UpcomingMatches() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className=" bg-gradient-to-br from-[#622085] via-[#A112BA] to-[#0f5c4f] hover:bg-white/20 text-white border-none size-14 text-sm" />
-            <CarouselNext className=" bg-gradient-to-br from-[#622085] via-[#A112BA] to-[#0f5c4f] hover:bg-white/20 text-white border-none size-14 text-sm" />
+            <CarouselPrevious className=" bg-gradient-to-br from-[#622085] ml-3 md:ml-0 via-[#A112BA] to-[#0f5c4f] hover:bg-white/20 text-white border-none size-10 md:size-14 text-sm" />
+            <CarouselNext className=" bg-gradient-to-br from-[#622085] mr-3 md:mr-0 via-[#A112BA] to-[#0f5c4f] hover:bg-white/20 text-white border-none size-10 md:size-14 text-sm" />
           </Carousel>
         )}
       </div>

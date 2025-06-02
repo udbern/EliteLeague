@@ -20,7 +20,7 @@ const StandingsTableShort = ({ title }) => {
       try {
         const data = await fetchStandings(selectedSeason._id);
         // Only show top 5 teams
-        setStandings(data.slice(0, 5));
+        setStandings(data);
       } catch (error) {
         console.error('Error fetching standings:', error);
       } finally {

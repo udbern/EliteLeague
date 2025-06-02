@@ -99,7 +99,7 @@ const AnimatedScorerRow = ({ player }) => (
       </div>
     </TableCell>
     <TableCell className="text-[#36053A]/80 truncate max-w-[100px] sm:max-w-[150px] md:max-w-none">
-      {player.team}
+      {player.shortName}
     </TableCell>
     <TableCell className="text-start font-bold text-[#36053A]/80">
       {player.goals}
@@ -138,7 +138,7 @@ export default function TopScorers() {
     return (
       <section className="mb-8 sm:mb-10 md:mb-12 font-montserrat p-4 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
         <div className="flex justify-center items-center py-8">
-        <span className="loader"></span>
+          <span className="loader"></span>
         </div>
       </section>
     );
@@ -151,16 +151,16 @@ export default function TopScorers() {
       </h2>
       <hr className="mb-2 text-[#36053A]/80" />
       <div className="">
-        <div className="overflow-hidden font-montserrat">
+        <div className={`overflow-hidden font-montserrat ${showAll ? 'max-h-[400px] overflow-y-auto custom-scrollbar' : ''}`}>
           <table className="w-full">
-            <thead className="bg-white/10">
+            <thead className="bg-white/10 sticky top-0 z-10">
               <tr>
-                <TableHeader className="w-8 sm:w-10 md:w-12 text-start">
+                <TableHeader className="w-8 sm:w-10 md:w-12 text-start bg-white">
                   Pos
                 </TableHeader>
-                <TableHeader>Player</TableHeader>
-                <TableHeader>Club</TableHeader>
-                <TableHeader className="text-start">Goals</TableHeader>
+                <TableHeader className="bg-white">Player</TableHeader>
+                <TableHeader className="bg-white">Club</TableHeader>
+                <TableHeader className="text-start bg-white">Goals</TableHeader>
               </tr>
             </thead>
             <tbody className="divide-y font-bold divide-white/10">
@@ -190,4 +190,29 @@ export default function TopScorers() {
       </div>
     </section>
   );
+}
+
+const customScrollbarStyles = `
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #36053A40;
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #36053A60;
+  }
+`;
+
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = customScrollbarStyles;
+  document.head.appendChild(styleSheet);
 }
