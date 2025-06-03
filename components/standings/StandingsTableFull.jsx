@@ -6,6 +6,7 @@ import { urlFor } from "@/lib/sanityClient";
 import { TableHeader, TableCell } from "./TableHelpers";
 import { useSeason } from "@/components/SeasonProvider";
 import "./loader.css";
+import Load from "@/assets/logo.png"
 
 const StandingsPage = () => {
   const [standings, setStandings] = useState([]);
@@ -44,7 +45,8 @@ const StandingsPage = () => {
     return (
       <section className="mb-[12px] pl-1 pr-1 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
         <div className="flex justify-center items-center py-8">
-        <span className="loader"></span>
+        <Image src={Load} alt="Loading" className="animate-pulse object-center object-contain" width={30} height={30} />
+
         </div>
       </section>
     );

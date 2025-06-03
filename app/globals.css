@@ -9,13 +9,25 @@
 }
 
 body {
-    background-image: url('../assets//bgbody.png');
+    background-image: url('../assets/bgbody.png');
     background-size: cover; /* or contain, depending on your preference */
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed; /* keeps the image fixed during scroll */
-    background-color: #e4dbdb; 
+     
+    background-blend-mode: multiply;
+    background-color: #e0dbdb;
+
 }
+html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Add smooth scrolling to all scrollable elements */
+  * {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
 
 /* Utility classes for fonts */
 .font-montserrat {

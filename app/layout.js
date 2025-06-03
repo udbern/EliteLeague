@@ -5,6 +5,8 @@ import './globals.css';
 import { Montserrat, Mukta, Raleway } from 'next/font/google';
 import ClientLayout from './ClientLayout';
 import { ClientRootLayout } from './ClientRootLayout';
+import { SeasonProvider } from "@/components/SeasonProvider";
+import { PageLoader } from "@/components/ui/loader";
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -14,7 +16,7 @@ const montserrat = Montserrat({
 
 const mukta = Mukta({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
   variable: '--font-mukta',
 });
 
@@ -25,8 +27,8 @@ const raleway = Raleway({
 });
 
 export const metadata = {
-  title: 'Elite League - Gaming Platform',
-  description: 'Your destination for competitive gaming and esports',
+  title: 'E-Football',
+  description: 'E-Football League Management System',
 };
 
 export default function RootLayout({ children }) {
@@ -36,9 +38,13 @@ export default function RootLayout({ children }) {
       className={`${montserrat.variable} ${mukta.variable} ${raleway.variable}`}
     >
       <body className="antialiased  flex flex-col">
-        <ClientRootLayout>
-          {children}
-        </ClientRootLayout>
+        <PageLoader />
+        <SeasonProvider>
+          <ClientRootLayout>
+            {children}
+          </ClientRootLayout>
+        </SeasonProvider>
+        <PageLoader />
       </body>
     </html>
   );

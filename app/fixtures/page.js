@@ -10,11 +10,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import "./loader.css";
+import Load from "@/assets/logo.png";
+import Image from "next/image";
+import "@/styles/scrollbar.css";
 
 export default function FixturesPage() {
   const [fixtures, setFixtures] = useState([]);
-  const [selectedRound, setSelectedRound] = useState("");
+  const [selectedRound, setSelectedRound] = useState("Round 1");
   const [loading, setLoading] = useState(true);
   const { selectedSeason } = useSeason();
 
@@ -37,9 +39,7 @@ export default function FixturesPage() {
       try {
         const result = await client.fetch(query, { seasonId: selectedSeason._id });
         setFixtures(result);
-        if (result.length > 0) {
-          setSelectedRound(result[0]?.round || "");
-        }
+        setSelectedRound("Round 1");
       } catch (err) {
         console.error("Failed to fetch fixtures:", err);
       } finally {
@@ -48,6 +48,10 @@ export default function FixturesPage() {
     };
 
     fetchFixtures();
+  }, [selectedSeason]);
+
+  useEffect(() => {
+    setSelectedRound("Round 1");
   }, [selectedSeason]);
 
   const allRounds = [...new Set(fixtures.map((f) => f.round))].sort((a, b) => {
@@ -62,15 +66,15 @@ export default function FixturesPage() {
       <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
         <div className="flex justify-center items-center mt-10 mb-10">
           <DropdownMenu className="">
-            <DropdownMenuTrigger className="px-3 py-1.5 bg-white text-[#36053A]/80 rounded-md border focus:outline-none hover:bg-gray-200 text-sm font-montserrat">
+            <DropdownMenuTrigger className="px-5 py-1 bg-white text-[#36053A]/80 rounded-md border focus:outline-none hover:bg-gray-200 text-sm font-montserrat">
               {selectedRound || "Select Round"}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white rounded-md border border-[#36053A]/40 max-h-[320px] overflow-y-auto custom-scrollbar">
+            <DropdownMenuContent className="bg-white rounded-md border border-[#36053A]/40 max-h-[320px] overflow-y-auto custom-scrollbar smooth-scroll">
               {allRounds.map((round) => (
                 <DropdownMenuItem 
                   key={round} 
                   onClick={() => setSelectedRound(round)} 
-                  className="text-sm hover:bg-[#36053A]/20 font-semibold font-montserrat text-[#36053A]/80"
+                  className="text-sm hover:bg-[#36053A]/20  font-semibold font-montserrat text-[#36053A]/80"
                 >
                   {round}
                 </DropdownMenuItem>
@@ -81,10 +85,11 @@ export default function FixturesPage() {
 
         {loading ? (
           <div className="flex justify-center items-center py-6">
-            <span className="loader"></span>
+                      <Image src={Load} alt="Loading" className="animate-pulse object-center object-contain" width={30} height={30} />
+
           </div>
         ) : filteredMatches.length > 0 ? (
-          <div className="space-y-3">
+          <div className="space-y-3 overflow-y-auto custom-scrollbar smooth-scroll">
             {filteredMatches.map((match) => (
               <MatchCard key={match._id} match={{
                 id: match._id,
@@ -109,29 +114,4 @@ export default function FixturesPage() {
       </div>
     </div>
   );
-}
-
-const customScrollbarStyles = `
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #36053A40;
-    border-radius: 3px;
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #36053A60;
-  }
-`;
-
-if (typeof document !== 'undefined') {
-  const styleSheet = document.createElement("style");
-  styleSheet.textContent = customScrollbarStyles;
-  document.head.appendChild(styleSheet);
 }

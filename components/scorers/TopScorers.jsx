@@ -7,7 +7,8 @@ import { urlFor } from "../../lib/sanityClient";
 import Image from "next/image";
 import { useSeason } from "@/components/SeasonProvider";
 import { Button } from "@/components/ui/button";
-import "./loader.css";
+
+import Load from "@/assets/logo.png"
 
 const TableHeader = ({ children, className = "" }) => (
   <th
@@ -138,7 +139,7 @@ export default function TopScorers() {
     return (
       <section className="mb-8 sm:mb-10 md:mb-12 font-montserrat p-4 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
         <div className="flex justify-center items-center py-8">
-          <span className="loader"></span>
+        <Image src={Load} alt="Loading" className="animate-pulse object-center object-contain" width={30} height={30} />
         </div>
       </section>
     );
