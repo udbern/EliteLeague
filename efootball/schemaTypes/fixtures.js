@@ -11,6 +11,13 @@ export default {
       validation: Rule => Rule.required(),
     },
     {
+      name: 'competition',
+      title: 'Competition',
+      type: 'reference',
+      to: [{ type: 'competition' }],
+      validation: Rule => Rule.required(),
+    },
+    {
       name: 'homeTeam',
       title: 'Home Team',
       type: 'reference',
@@ -45,42 +52,28 @@ export default {
       type: 'string',
     },
     {
+      name: 'group',
+      title: 'Group',
+      type: 'string',
+      description: 'For group stages, specify the group (e.g., "Group A", "Group B", "Group C")',
+      hidden: ({ document }) => !document?.round?.toLowerCase().includes('group'),
+    },
+    {
       name: 'status',
       title: 'Match Status',
       type: 'string',
       options: {
         list: [
           { title: 'Scheduled', value: 'scheduled' },
+          { title: 'In Progress', value: 'in-progress' },
           { title: 'Completed', value: 'completed' },
-        ],
-        layout: 'radio',
+          { title: 'Postponed', value: 'postponed' },
+          { title: 'Cancelled', value: 'cancelled' }
+        ]
       },
-      validation: Rule =>
-        Rule.custom((status, context) => {
-          const { homeScore, awayScore, homeGoalScorers, awayGoalScorers } = context.document;
-          
-          if (status === 'completed') {
-            // First check: Both scores must be provided
-            if (homeScore === undefined || awayScore === undefined) {
-              return 'Cannot mark as completed unless both scores are provided.';
-            }
-
-            // Second check: If it's a 0-0 draw, allow it without goal scorers
-            if (homeScore === 0 && awayScore === 0) {
-              return true;
-            }
-
-            // Third check: For matches with goals, require goal scorers
-            const hasGoals = homeScore > 0 || awayScore > 0;
-            const hasScorers = (homeGoalScorers?.length || 0) > 0 || (awayGoalScorers?.length || 0) > 0;
-            
-            if (hasGoals && !hasScorers) {
-              return 'Cannot mark as completed with goals unless goal scorers are recorded.';
-            }
-          }
-          return true;
-        }),
+      initialValue: 'scheduled',
     },
+    
     {
       name: 'homeGoalScorers',
       title: 'Home Goal Scorers',
@@ -139,6 +132,201 @@ export default {
         }
       ]
     },
+    {
+      name: 'homeTeamStats',
+      title: 'Home Team Statistics',
+      type: 'object',
+      fields: [
+        {
+          name: 'possession',
+          title: 'Possession (%)',
+          type: 'number',
+          validation: Rule => Rule.min(0).max(100),
+        },
+        {
+          name: 'shots',
+          title: 'Total Shots',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'shotsOnTarget',
+          title: 'Shots on Target',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'corners',
+          title: 'Corners',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'fouls',
+          title: 'Fouls',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'yellowCards',
+          title: 'Yellow Cards',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'redCards',
+          title: 'Red Cards',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'offsides',
+          title: 'Offsides',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'passes',
+          title: 'Total Passes',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'passAccuracy',
+          title: 'Pass Accuracy (%)',
+          type: 'number',
+          validation: Rule => Rule.min(0).max(100),
+        },
+        {
+          name: 'freeKicks',
+          title: 'Free Kicks',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'crosses',
+          title: 'Crosses',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'interceptions',
+          title: 'Interceptions',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'tackles',
+          title: 'Tackles',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'saves',
+          title: 'Saves',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+      ],
+    },
+    {
+      name: 'awayTeamStats',
+      title: 'Away Team Statistics',
+      type: 'object',
+      fields: [
+        {
+          name: 'possession',
+          title: 'Possession (%)',
+          type: 'number',
+          validation: Rule => Rule.min(0).max(100),
+        },
+        {
+          name: 'shots',
+          title: 'Total Shots',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'shotsOnTarget',
+          title: 'Shots on Target',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'corners',
+          title: 'Corners',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'fouls',
+          title: 'Fouls',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'yellowCards',
+          title: 'Yellow Cards',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'redCards',
+          title: 'Red Cards',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'offsides',
+          title: 'Offsides',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'passes',
+          title: 'Total Passes',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'passAccuracy',
+          title: 'Pass Accuracy (%)',
+          type: 'number',
+          validation: Rule => Rule.min(0).max(100),
+        },
+        {
+          name: 'freeKicks',
+          title: 'Free Kicks',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'crosses',
+          title: 'Crosses',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'interceptions',
+          title: 'Interceptions',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'tackles',
+          title: 'Tackles',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+        {
+          name: 'saves',
+          title: 'Saves',
+          type: 'number',
+          validation: Rule => Rule.min(0),
+        },
+      ],
+    },
+    
   ],
   preview: {
     select: {
@@ -146,11 +334,12 @@ export default {
       subtitle: 'season.name',
       homeTeam: 'homeTeam.name',
       awayTeam: 'awayTeam.name',
+      competition: 'competition.name',
     },
-    prepare({ title, subtitle, homeTeam, awayTeam }) {
+    prepare({ title, subtitle, homeTeam, awayTeam, competition }) {
       return {
         title: `${homeTeam} vs ${awayTeam}`,
-        subtitle: `${subtitle} - ${title}`,
+        subtitle: `${competition} - ${subtitle} - ${title}`,
       }
     },
   },

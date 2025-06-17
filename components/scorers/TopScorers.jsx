@@ -6,6 +6,7 @@ import { fetchTopScorers } from "../../lib/fetchScorers";
 import { urlFor } from "../../lib/sanityClient";
 import Image from "next/image";
 import { useSeason } from "@/components/SeasonProvider";
+import { useCompetition } from "@/components/CompetitionProvider";
 import { Button } from "@/components/ui/button";
 
 import Load from "@/assets/logo.png"
@@ -113,14 +114,15 @@ export default function TopScorers() {
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
   const { selectedSeason } = useSeason();
+  const { selectedCompetition } = useCompetition();
 
   useEffect(() => {
     const loadScorers = async () => {
-      if (!selectedSeason?._id) return;
+      if (!selectedSeason?._id || !selectedCompetition?._id) return;
 
       setLoading(true);
       try {
-        const data = await fetchTopScorers(selectedSeason._id);
+        const data = await fetchTopScorers(selectedSeason._id, selectedCompetition._id);
         setScorers(data);
       } catch (error) {
         console.error("Error loading scorers:", error);
@@ -130,7 +132,7 @@ export default function TopScorers() {
     };
 
     loadScorers();
-  }, [selectedSeason]);
+  }, [selectedSeason, selectedCompetition]);
 
   const initialScorers = scorers.slice(0, 3);
   const displayedScorers = showAll ? scorers : initialScorers;

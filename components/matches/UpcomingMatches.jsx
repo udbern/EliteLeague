@@ -5,6 +5,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { MatchCard } from "@/components/MatchCard";
 import client from "@/lib/sanityClient";
 import { useSeason } from "@/components/SeasonProvider";
+import { useCompetition } from "@/components/CompetitionProvider";
 
 const LoadingCard = () => (
   <div className="bg-white rounded-lg shadow p-4 animate-pulse font-montserrat">
@@ -55,13 +56,14 @@ export default function UpcomingMatches() {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const { selectedSeason } = useSeason();
+  const { selectedCompetition } = useCompetition();
 
   useEffect(() => {
     const fetchUpcomingMatches = async () => {
-      if (!selectedSeason?._id) return;
+      if (!selectedSeason?._id || !selectedCompetition?._id) return;
       
       setLoading(true);
-      const query = `*[_type == "fixture" && season._ref == $seasonId && status != "completed"] | order(date asc)[0...5] {
+      const query = `*[_type == "fixture" && season._ref == $seasonId && competition._ref == $competitionId && status != "completed"] | order(date asc)[0...5] {
         _id,
         date,
         status,
@@ -72,7 +74,10 @@ export default function UpcomingMatches() {
       }`;
 
       try {
-        const result = await client.fetch(query, { seasonId: selectedSeason._id });
+        const result = await client.fetch(query, { 
+          seasonId: selectedSeason._id,
+          competitionId: selectedCompetition._id 
+        });
 
         const mapped = result.map((match) => ({
           id: match._id,
@@ -99,7 +104,7 @@ export default function UpcomingMatches() {
     };
 
     fetchUpcomingMatches();
-  }, [selectedSeason]);
+  }, [selectedSeason, selectedCompetition]);
 
   if (loading) {
     return <LoadingSection />;
@@ -107,12 +112,14 @@ export default function UpcomingMatches() {
 
   return (
     <section className="mb-8 bg-white rounded-[14px] p-6 font-montserrat">
-      <h2 className="text-lg font-bold text-[#36053A]/80 mb-4 sm:mb-5 md:mb-6 font-montserrat">Upcoming Matches</h2>
+      <h2 className="text-lg font-bold text-[#36053A]/80 mb-4 sm:mb-5 md:mb-6 font-montserrat">
+       Upcoming Matches
+      </h2>
       <hr className="mb-2 text-[#36053A]/80" />
       <div className="max-w-xl mx-auto">
         {matches.length === 0 ? (
           <p className="text-center text-gray-500 py-8">
-            No upcoming matches for this season.
+            No upcoming matches for {selectedCompetition?.name}.
           </p>
         ) : (
           <Carousel

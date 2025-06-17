@@ -6,7 +6,9 @@ import { Montserrat, Mukta, Raleway } from 'next/font/google';
 import ClientLayout from './ClientLayout';
 import { ClientRootLayout } from './ClientRootLayout';
 import { SeasonProvider } from "@/components/SeasonProvider";
+import { CompetitionProvider } from "@/components/CompetitionProvider";
 import { PageLoader } from "@/components/ui/loader";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -40,11 +42,14 @@ export default function RootLayout({ children }) {
       <body className="antialiased  flex flex-col">
         <PageLoader />
         <SeasonProvider>
-          <ClientRootLayout>
-            {children}
-          </ClientRootLayout>
+          <CompetitionProvider>
+            <ClientRootLayout>
+              {children}
+            </ClientRootLayout>
+          </CompetitionProvider>
         </SeasonProvider>
         <PageLoader />
+        <ScrollToTop />
       </body>
     </html>
   );

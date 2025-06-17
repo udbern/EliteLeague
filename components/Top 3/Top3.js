@@ -5,20 +5,22 @@ import { TableHeader, TableCell } from "../standings/TableHelpers";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanityClient";
 import { useSeason } from "@/components/SeasonProvider";
+import { useCompetition } from "@/components/CompetitionProvider";
 import Load from "@/assets/logo.png"
 
 const Top3 = ({ title }) => {
   const [standings, setStandings] = useState([]);
   const [loading, setLoading] = useState(true);
   const { selectedSeason } = useSeason();
+  const { selectedCompetition } = useCompetition();
 
   useEffect(() => {
     const getStandings = async () => {
-      if (!selectedSeason?._id) return;
+      if (!selectedSeason?._id || !selectedCompetition?._id) return;
       
       setLoading(true);
       try {
-        const data = await fetchStandings(selectedSeason._id);
+        const data = await fetchStandings(selectedSeason._id, selectedCompetition._id);
         setStandings(data.slice(0, 3));
       } catch (error) {
         console.error('Error fetching standings:', error);
@@ -27,7 +29,7 @@ const Top3 = ({ title }) => {
       }
     };
     getStandings();
-  }, [selectedSeason]);
+  }, [selectedSeason, selectedCompetition]);
 
   // Helper to get image URL from Sanity or fallback local / placeholder
   const getImageSrc = (logo) => {
@@ -53,7 +55,7 @@ const Top3 = ({ title }) => {
   return (
     <section className="mb-8 sm:mb-10 md:mb-12 font-montserrat p-4 bg-white rounded-lg overflow-hidden backdrop-blur-sm">
       <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#36053A]/80 mb-4 sm:mb-5 md:mb-6 font-montserrat">
-        {title || "Top 3"}
+        Top 3
       </h2>
       <hr className="mb-2 text-[#36053A]/80" />
       <div className="overflow-x-auto">

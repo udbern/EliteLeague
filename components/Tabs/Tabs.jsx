@@ -4,6 +4,16 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { useCompetition } from "@/components/CompetitionProvider";
+import { useSeason } from "@/components/SeasonProvider";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ChevronDown } from "lucide-react";
 
 const TABS = [
   { name: "Overview", path: "/" },
@@ -14,22 +24,45 @@ const TABS = [
 const Tabs = () => {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState(pathname);
+  const { selectedCompetition, setSelectedCompetition, competitions, loading } = useCompetition();
+  const { selectedSeason } = useSeason();
 
   useEffect(() => {
     setActiveTab(pathname);
   }, [pathname]);
 
+  // Debug logging
+  useEffect(() => {
+    console.log("🏷️ TABS - COMPETITIONS STATE:", {
+      competitionsCount: competitions.length,
+      competitions: competitions.map(c => ({ id: c._id, name: c.name, type: c.type })),
+      selectedCompetition: selectedCompetition ? { id: selectedCompetition._id, name: selectedCompetition.name, type: selectedCompetition.type } : null,
+      loading: loading,
+      selectedSeason: selectedSeason?.name
+    });
+  }, [competitions, selectedCompetition, loading, selectedSeason]);
+
+  const handleCompetitionChange = (competitionId) => {
+    console.log("🔄 COMPETITION CHANGED TO:", competitionId);
+    const competition = competitions.find(c => c._id === competitionId);
+    if (competition) {
+      console.log("✅ SETTING COMPETITION TO:", competition.name);
+      setSelectedCompetition(competition);
+    }
+  };
+
   return (
-    <div className=" ">
+    <div className="w-full overflow-x-auto">
+
       <div className="max-w-5xl mx-auto px-4">
-        <nav className="flex space-x-8 font-montserrat overflow-x-auto py-2 scrollbar-hide">
+        <nav className="flex items-center space-x-1.5 md:space-x-4 font-montserrat py-2 scrollbar-hide">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.path;
             return (
               <Link
                 key={tab.path}
                 href={tab.path}
-                className={`relative px-1 py-2 text-sm font-bold transition-colors
+                className={`relative whitespace-nowrap px-1 py-2 text-sm font-bold transition-colors
                   ${
                     isActive
                       ? "text-white"
@@ -51,6 +84,41 @@ const Tabs = () => {
               </Link>
             );
           })}
+          
+          {/* Competition Selector */}
+          {selectedSeason && (
+            <div className="flex items-center">
+              <Select
+                value={selectedCompetition?._id || ""}
+                onValueChange={handleCompetitionChange}
+                disabled={loading || competitions.length === 0}
+              >
+                <SelectTrigger className="bg-transparent border-none outline-0    text-white hover:text-white/80 p-1 h-auto font-bold text-sm font-montserrat focus:ring-none focus:ring-transparent  shadow-none">
+                  <div className="flex items-center space-x-1">
+                    <span className="whitespace-nowrap">
+                      {loading 
+                        ? "Loading..." 
+                        : competitions.length === 0
+                        ? "No Competitions"
+                        : selectedCompetition?.name || "Competition"
+                      }
+                    </span>
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="bg-white  font-montserrat mt-2 shadow-none border-one  border-gray-200">
+                  {competitions.map((competition) => (
+                    <SelectItem 
+                      key={competition._id} 
+                      value={competition._id}
+                      className="text-gray-800 hover:bg-[#36053A]/70 hover:text-white  "
+                    >
+                      {competition.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
         </nav>
       </div>
     </div>

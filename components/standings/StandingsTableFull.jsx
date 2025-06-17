@@ -5,6 +5,7 @@ import fetchStandings from "../../lib/fetchStandings";
 import { urlFor } from "@/lib/sanityClient";
 import { TableHeader, TableCell } from "./TableHelpers";
 import { useSeason } from "@/components/SeasonProvider";
+import { useCompetition } from "@/components/CompetitionProvider";
 import "./loader.css";
 import Load from "@/assets/logo.png"
 
@@ -12,14 +13,17 @@ const StandingsPage = () => {
   const [standings, setStandings] = useState([]);
   const [loading, setLoading] = useState(true);
   const { selectedSeason } = useSeason();
+  const { selectedCompetition } = useCompetition();
 
   useEffect(() => {
     const getStandings = async () => {
-      if (!selectedSeason?._id) return;
+      if (!selectedSeason?._id || !selectedCompetition?._id) {
+        return;
+      }
       
       setLoading(true);
       try {
-        const data = await fetchStandings(selectedSeason._id);
+        const data = await fetchStandings(selectedSeason._id, selectedCompetition._id);
         setStandings(data);
       } catch (error) {
         console.error('Error fetching standings:', error);
@@ -28,7 +32,7 @@ const StandingsPage = () => {
       }
     };
     getStandings();
-  }, [selectedSeason]);
+  }, [selectedSeason, selectedCompetition]);
 
   // Helper: get image src (Sanity object, local string, or fallback)
   const getImageSrc = (logo) => {
@@ -52,7 +56,7 @@ const StandingsPage = () => {
     );
   }
 
-  return <StandingsTableFull data={standings} title={`${selectedSeason?.name} Standings`} getImageSrc={getImageSrc} />;
+  return <StandingsTableFull data={standings} title={`${selectedCompetition?.name} Standings`} getImageSrc={getImageSrc} />;
 };
 
 const StandingsTableFull = ({ data, title, getImageSrc }) => {

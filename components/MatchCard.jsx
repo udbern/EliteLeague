@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { urlFor } from "@/lib/sanityClient";
 import Image from "next/image";
+import Link from "next/link";
 
 export const MatchCard = ({ match }) => {
   const [formattedDate, setFormattedDate] = useState("");
@@ -38,14 +39,27 @@ export const MatchCard = ({ match }) => {
     }
   };
 
+  const isClickable = match.status === "completed";
+
   return (
-    <div className="bg-white rounded-lg p-4 font-montserrat">
+    <Link
+      href={isClickable ? `/matches/${match.id}` : "#"}
+      className={`block bg-white rounded-lg p-4 font-montserrat ${
+        isClickable
+          ? "cursor-pointer"
+          : ""
+      }`}
+    >
       <div className="flex items-center justify-between mb-4 font-montserrat">
         <div className="text-xs sm:text-sm text-[#36053A]/50 font-semibold font-montserrat">
           {formattedDate} • {match.time}
         </div>
         {match.status && (
-          <span className={`text-[10px] sm:text-xs px-2 py-1 font-semibold  text-[#36053A]/80 rounded-full font-montserrat ${getStatusStyle(match.status)}`}>
+          <span
+            className={`text-[10px] sm:text-xs px-2 py-1 font-semibold  text-[#36053A]/80 rounded-full font-montserrat ${getStatusStyle(
+              match.status
+            )}`}
+          >
             {match.status.toUpperCase()}
           </span>
         )}
@@ -60,11 +74,15 @@ export const MatchCard = ({ match }) => {
             height={48}
             className="w-10 h-10 sm:w-12 sm:h-12 rounded-full  object-center  object-cover  mb-2"
           />
-          <span className="text-xs sm:text-sm text-[#36053A]/80 text-center font-semibold font-montserrat">{match.homeTeam}</span>
+          <span className="text-xs sm:text-sm text-[#36053A]/80 text-center font-semibold font-montserrat">
+            {match.homeTeam}
+          </span>
         </div>
 
         <div className="text-lg sm:text-xl font-semibold text-[#36053A]/80 font-montserrat">
-          {match.status === "completed" && match.homeScore != null && match.awayScore != null
+          {match.status === "completed" &&
+          match.homeScore != null &&
+          match.awayScore != null
             ? `${match.homeScore} - ${match.awayScore}`
             : "VS"}
         </div>
@@ -77,9 +95,11 @@ export const MatchCard = ({ match }) => {
             height={48}
             className="w-10 h-10 sm:w-12 sm:h-12  rounded-full overflow-hidden object-center  object-cover  mb-2"
           />
-          <span className="text-xs sm:text-sm font-semibold text-[#36053A]/80 text-center font-montserrat">{match.awayTeam}</span>
+          <span className="text-xs sm:text-sm font-semibold text-[#36053A]/80 text-center font-montserrat">
+            {match.awayTeam}
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

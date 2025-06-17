@@ -1,41 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
-import fetchStandings from "../../lib/fetchStandings";
 import { TableHeader, TableCell, FormIndicator } from "./TableHelpers";
 import { urlFor } from "@/lib/sanityClient";
-import { useSeason } from "@/components/SeasonProvider";
-import "./loader.css";
-import Load from "@/assets/logo.png"
 
-const StandingsTableForm = ({ title }) => {
-  const [standings, setStandings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { selectedSeason } = useSeason();
-
-  useEffect(() => {
-    const getStandings = async () => {
-      if (!selectedSeason?._id) return;
-      
-      setLoading(true);
-      try {
-        const data = await fetchStandings(selectedSeason._id);
-        setStandings(data);
-      } catch (error) {
-        console.error('Error fetching standings:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getStandings();
-  }, [selectedSeason]);
-
-  if (loading) {
+const StandingsTableForm = ({ data, title }) => {
+  if (!data || data.length === 0) {
     return (
-      <section className="mb-[12px] pl-2 pr-2 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] font-montserrat overflow-hidden backdrop-blur-sm">
-        <div className="flex justify-center items-center py-4">
-        <Image src={Load} alt="Loading" className="animate-pulse object-center object-contain" width={30} height={30} />
-
+      <section className="mb-[12px] pl-1 pr-1 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
+        <div className="text-center py-8">
+          <p className="text-gray-500 font-montserrat">No standings data available.</p>
         </div>
       </section>
     );
@@ -53,7 +27,7 @@ const StandingsTableForm = ({ title }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {standings.map((team, index) => (
+            {data.map((team, index) => (
               <tr key={index} className="hover:bg-gray-50 transition-colors">
                 <TableCell className="text-center font-bold">
                   {team.position}

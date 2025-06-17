@@ -1,36 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import fetchStandings from "../../lib/fetchStandings";
+import React from "react";
 import { TableHeader, TableCell } from "./TableHelpers";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanityClient";
-import { useSeason } from "@/components/SeasonProvider";
-import "./loader.css";
-import  Load from "@/assets/logo.png"
 
-const StandingsTableShort = ({ title }) => {
-  const [standings, setStandings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { selectedSeason } = useSeason();
-
-  useEffect(() => {
-    const getStandings = async () => {
-      if (!selectedSeason?._id) return;
-      
-      setLoading(true);
-      try {
-        const data = await fetchStandings(selectedSeason._id);
-        // Only show top 5 teams
-        setStandings(data);
-      } catch (error) {
-        console.error('Error fetching standings:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getStandings();
-  }, [selectedSeason]);
-
+const StandingsTableShort = ({ data, title }) => {
   // Helper to get image URL from Sanity or fallback local / placeholder
   const getImageSrc = (logo) => {
     if (logo && logo.asset?._ref) {
@@ -42,12 +16,11 @@ const StandingsTableShort = ({ title }) => {
     }
   };
 
-  if (loading) {
+  if (!data || data.length === 0) {
     return (
       <section className="mb-[12px] pl-1 pr-1 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
-        <div className="flex justify-center items-center py-4">
-        <Image src={Load} alt="Loading" className="animate-pulse object-center object-contain" width={30} height={30} />
-
+        <div className="text-center py-8">
+          <p className="text-gray-500 font-montserrat">No standings data available.</p>
         </div>
       </section>
     );
@@ -55,9 +28,7 @@ const StandingsTableShort = ({ title }) => {
 
   return (
     <section className="mb-[12px] font-montserrat pl-1 pr-1 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
-      <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#36053A]/80 mb-[12px] text-center">
-        {title}
-      </h2>
+     
       <div className="overflow-x-auto">
         <table className="w-full font-montserrat font-semibold text-[10px] sm:text-xs md:text-sm">
           <thead>
@@ -70,7 +41,7 @@ const StandingsTableShort = ({ title }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {standings.map((team) => {
+            {data.map((team) => {
               const logoUrl = getImageSrc(team.logo);
               return (
                 <tr key={team.position} className="hover:bg-gray-50 transition-colors">

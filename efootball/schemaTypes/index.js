@@ -1,6 +1,6 @@
 import fixtures from "./fixtures";
-import standings from "./standings";
 import team from "./team";
 import season from "./season";
+import competition from "./competition";
 
-export const schemaTypes = [team, fixtures, standings, season];
+export const schemaTypes = [team, fixtures, season, competition];

@@ -61,17 +61,6 @@ export const SeasonProvider = ({ children }) => {
     setIsMounted(true);
   }, []);
 
-  // Store selected season in localStorage and trigger a custom event
-  useEffect(() => {
-    if (selectedSeason) {
-      localStorage.setItem('selectedSeason', JSON.stringify(selectedSeason));
-      // Dispatch a custom event that other components can listen to
-      window.dispatchEvent(new CustomEvent('seasonChanged', { 
-        detail: { season: selectedSeason }
-      }));
-    }
-  }, [selectedSeason]);
-
   if (!isMounted) {
     return null;
   }

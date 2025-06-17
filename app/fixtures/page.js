@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { MatchCard } from "@/components/MatchCard";
-import client from "@/lib/sanityClient";
+import CupStages from "@/components/CupStages";
+import { fetchFixtures as fetchAllFixtures } from "@/lib/fetchFixtures";
 import { useSeason } from "@/components/SeasonProvider";
+import { useCompetition } from "@/components/CompetitionProvider";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,25 +21,20 @@ export default function FixturesPage() {
   const [selectedRound, setSelectedRound] = useState("Round 1");
   const [loading, setLoading] = useState(true);
   const { selectedSeason } = useSeason();
+  const { selectedCompetition } = useCompetition();
 
   useEffect(() => {
-    if (!selectedSeason?._id) return;
+    if (!selectedSeason?._id || !selectedCompetition?._id) {
+      return;
+    }
 
-    const fetchFixtures = async () => {
+    const getFixtures = async () => {
       setLoading(true);
-      const query = `*[_type == "fixture" && season._ref == $seasonId] | order(date asc) {
-        _id,
-        date,
-        status,
-        round,
-        homeScore,
-        awayScore,
-        "homeTeam": homeTeam->{name, "logo": logo.asset->url},
-        "awayTeam": awayTeam->{name, "logo": logo.asset->url}
-      }`;
-
       try {
-        const result = await client.fetch(query, { seasonId: selectedSeason._id });
+        const result = await fetchAllFixtures(
+          selectedSeason._id,
+          selectedCompetition._id
+        );
         setFixtures(result);
         setSelectedRound("Round 1");
       } catch (err) {
@@ -47,12 +44,12 @@ export default function FixturesPage() {
       }
     };
 
-    fetchFixtures();
-  }, [selectedSeason]);
+    getFixtures();
+  }, [selectedSeason, selectedCompetition]);
 
   useEffect(() => {
     setSelectedRound("Round 1");
-  }, [selectedSeason]);
+  }, [selectedSeason, selectedCompetition]);
 
   const allRounds = [...new Set(fixtures.map((f) => f.round))].sort((a, b) => {
     const numA = parseInt(a.replace(/\D/g, ''));
@@ -61,6 +58,52 @@ export default function FixturesPage() {
   });
   const filteredMatches = fixtures.filter((m) => m.round === selectedRound);
 
+  if (!selectedSeason) {
+    return (
+      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+        <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
+          <div className="text-center py-20">
+            <h3 className="text-xl font-semibold text-gray-700 mb-2 font-montserrat">
+              Select a Season
+            </h3>
+            <p className="text-gray-500 font-montserrat">
+              Please select a season to view fixtures.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!selectedCompetition) {
+    return (
+      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+        <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
+          <div className="text-center py-20">
+            <h3 className="text-xl font-semibold text-gray-700 mb-2 font-montserrat">
+              Select a Competition
+            </h3>
+            <p className="text-gray-500 font-montserrat">
+              Please select a competition from the dropdown in the navigation to view its fixtures.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show CupStages component for cup competitions
+  if (selectedCompetition.type === 'cup') {
+    return (
+      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+        <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
+          <CupStages />
+        </div>
+      </div>
+    );
+  }
+
+  // Regular fixtures view for league and other competitions
   return (
     <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
       <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
@@ -105,11 +148,18 @@ export default function FixturesPage() {
                 homeScore: match.homeScore,
                 awayScore: match.awayScore,
                 status: match.status,
+                venue: match.venue,
+                attendance: match.attendance,
+                referee: match.referee,
+                round: match.round,
+                homeTeamStats: match.homeTeamStats,
+                awayTeamStats: match.awayTeamStats,
+                matchEvents: match.matchEvents,
               }} />
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500 py-6 text-sm font-montserrat">No matches found for this season.</p>
+          <p className="text-center text-gray-500 py-6 text-sm font-montserrat">No matches found for this competition.</p>
         )}
       </div>
     </div>
