@@ -89,7 +89,7 @@ const MatchStats = ({ match }) => {
     { key: 'corners', label: 'Corner Kicks', highlightHigher: false },
     { key: 'freeKicks', label: 'Free Kicks', highlightHigher: true },
     { key: 'passes', label: 'Passes', highlightHigher: true },
-    { key: 'passAccuracy', label: 'Successful Passes', highlightHigher: true },
+    { key: 'successfulPass', label: 'Successful Passes', highlightHigher: true },
     { key: 'crosses', label: 'Crosses', highlightHigher: false },
     { key: 'interceptions', label: 'Interceptions', highlightHigher: false },
     { key: 'tackles', label: 'Tackles', highlightHigher: false },

@@ -133,30 +133,37 @@ export default function FixturesPage() {
           </div>
         ) : filteredMatches.length > 0 ? (
           <div className="space-y-3 overflow-y-auto custom-scrollbar smooth-scroll">
-            {filteredMatches.map((match) => (
-              <MatchCard key={match._id} match={{
-                id: match._id,
-                date: match.date,
-                time: new Date(match.date).toLocaleTimeString("en-GB", {
+            {filteredMatches.map((match) => {
+              // Defensive: ensure match.date is valid
+              let time = '';
+              if (match.date && !isNaN(Date.parse(match.date))) {
+                time = new Date(match.date).toLocaleTimeString("en-GB", {
                   hour: "2-digit",
                   minute: "2-digit",
-                }),
-                homeTeam: match.homeTeam.name,
-                homeLogo: match.homeTeam.logo,
-                awayTeam: match.awayTeam.name,
-                awayLogo: match.awayTeam.logo,
-                homeScore: match.homeScore,
-                awayScore: match.awayScore,
-                status: match.status,
-                venue: match.venue,
-                attendance: match.attendance,
-                referee: match.referee,
-                round: match.round,
-                homeTeamStats: match.homeTeamStats,
-                awayTeamStats: match.awayTeamStats,
-                matchEvents: match.matchEvents,
-              }} />
-            ))}
+                });
+              }
+              return (
+                <MatchCard key={match._id} match={{
+                  id: match._id,
+                  date: match.date,
+                  time,
+                  homeTeam: match.homeTeam.name,
+                  homeLogo: match.homeTeam.logo,
+                  awayTeam: match.awayTeam.name,
+                  awayLogo: match.awayTeam.logo,
+                  homeScore: match.homeScore,
+                  awayScore: match.awayScore,
+                  status: match.status,
+                  venue: match.venue,
+                  attendance: match.attendance,
+                  referee: match.referee,
+                  round: match.round,
+                  homeTeamStats: match.homeTeamStats,
+                  awayTeamStats: match.awayTeamStats,
+                  matchEvents: match.matchEvents,
+                }} />
+              );
+            })}
           </div>
         ) : (
           <p className="text-center text-gray-500 py-6 text-sm font-montserrat">No matches found for this competition.</p>

@@ -192,10 +192,10 @@ export default {
           validation: Rule => Rule.min(0),
         },
         {
-          name: 'passAccuracy',
-          title: 'Pass Accuracy (%)',
+          name: 'successfulPass',
+          title: 'Successful Passes',
           type: 'number',
-          validation: Rule => Rule.min(0).max(100),
+          validation: Rule => Rule.min(0),
         },
         {
           name: 'freeKicks',
@@ -289,10 +289,10 @@ export default {
           validation: Rule => Rule.min(0),
         },
         {
-          name: 'passAccuracy',
-          title: 'Pass Accuracy (%)',
+          name: 'successfulPass',
+          title: 'Successful Passes',
           type: 'number',
-          validation: Rule => Rule.min(0).max(100),
+          validation: Rule => Rule.min(0),
         },
         {
           name: 'freeKicks',
