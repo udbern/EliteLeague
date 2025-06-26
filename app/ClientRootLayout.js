@@ -9,7 +9,6 @@ export function ClientRootLayout({ children }) {
     <SeasonProvider>
       <Header />
       <main>{children}</main>
-    
     </SeasonProvider>
   );
 } 

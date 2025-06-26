@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -19,6 +20,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { selectedSeason, setSelectedSeason, seasons } = useSeason();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +51,7 @@ const Header = () => {
         isScrolled ? "shadow-lg" : ""
       }`}
     >
-      <nav className="bg-gradient-to-br from-[#622085] via-[#A112BA] to-[#0f5c4f]">
+      <nav className="custom-gradient-4">
         {/* Top Bar */}
         <div className="flex justify-between items-center px-3 py-6 md:py-3 md:px-4 md:max-w-5xl md:mx-auto">
           {/* Logo Section */}
@@ -59,16 +61,21 @@ const Header = () => {
 
           {/* Season Selector */}
           <div className="flex items-center font-montserrat">
-            <DropdownMenu >
-              <DropdownMenuTrigger asChild>
+            <DropdownMenu  >
+              <DropdownMenuTrigger asChild onClick={() => setDropdownOpen((v) => !v)}>
                 <Button
                   variant="outline"
-                  className="text-white font-montserrat overflow-hidden font-semibold border-gray-100 hover:bg-white/10 hover:text-white focus:ring-1 focus:ring-transparent "
+                  className="text-white cursor-pointer font-montserrat overflow-hidden font-semibold border-gray-100 hover:bg-white/10 hover:text-white focus:ring-1 focus:ring-transparent "
                 >
-                  {selectedSeason.name}
+                  <span className="flex items-center gap-2">
+                    {selectedSeason.name}
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+                    />
+                  </span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 bg-white/95 border-none shadow-none">
+              <DropdownMenuContent align="end" className="w-48 bg-white/95 border-none shadow-none" onCloseAutoFocus={() => setDropdownOpen(false)}>
                 {[...seasons].sort((a, b) => {
                   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                   return months.indexOf(a.startDate) - months.indexOf(b.startDate);
@@ -76,7 +83,7 @@ const Header = () => {
                   <DropdownMenuItem
                     key={season._id}
                     onClick={() => handleSeasonChange(season)}
-                    className={`text-[#36053A] font-montserrat font-semibold hover:bg-[#36053A]/70 hover:text-white flex items-center justify-between`}
+                    className={`text-[#36053A] font-montserrat cursor-pointer font-semibold hover:bg-gradient-to-r  from-[#453DE4]/80 via-[#A723EE]/100 to-[#96F6E6]/100 hover:text-white flex items-center justify-between`}
                   >
                     <div className="flex flex-col">
                       <span>{season.name}</span>

@@ -97,61 +97,9 @@ const MatchStats = ({ match }) => {
   ];
 
   return (
-    <div className="max-w-5xl md:max-w-4xl  mx-auto py-6 px-2 md:px-6 font-montserrat bg-gray-200 min-h-screen">
+    <div className="max-w-5xl md:max-w-4xl  mx-auto py-6 px-2 md:px-6 font-montserrat bg-white rounded-[15px] min-h-screen">
       <div className=" rounded-lg  p-4 md:p-6">
-        {/* Match Header */}
-        <div className=" rounded-lg p-2 md:p-4 mb-6">
-          <div className="text-center mb-4 relative">
-            <p className="text-sm text-gray-600">
-            {formattedDate} • {match.time}
-            </p>
-            <p className="text-xs text-gray-500 mb-2">
-              {match.venue && `${match.venue}`}
-              {match.attendance && ` • Attendance: ${match.attendance.toLocaleString()}`}
-            </p>
-            {match.status && (
-              <span className={`text-[10px] sm:text-xs px-2 py-1 font-semibold  text-[#36053A]/80 rounded-full ${getStatusStyle(match.status)}`}>
-                {match.status.toUpperCase()}
-              </span>
-            )}
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col items-center flex-1">
-              {match.homeTeam?.logo && (
-                <Image
-                  src={getImageSrc(match.homeTeam.logo)}
-                  alt={match.homeTeam.name}
-                  width={60}
-                  height={60}
-                  className="w-16 h-16 sm:w-15 sm:h-15 rounded-full  object-center  object-contain mb-2"
-                />
-              )}
-              <span className="text-sm font-semibold text-[#36053A] text-center">
-                {match.homeTeam.name}
-              </span>
-            </div>
-
-            <div className="text-2xl font-bold text-[#36053A] mx-4">
-              {match.homeScore} - {match.awayScore}
-            </div>
-
-            <div className="flex flex-col items-center flex-1">
-              {match.awayTeam?.logo && (
-                <Image
-                  src={getImageSrc(match.awayTeam.logo)}
-                  alt={match.awayTeam.name}
-                  width={60}
-                  height={60}
-                  className="w-16 h-16 sm:w-15 sm:h-15 rounded-full  object-center object-contain mb-2"
-                />
-              )}
-              <span className="text-sm font-semibold text-[#36053A] text-center">
-                {match.awayTeam.name}
-              </span>
-            </div>
-          </div>
-        </div>
+        
 
         {/* Match Facts Section */}
         {match.homeTeamStats && match.awayTeamStats && (

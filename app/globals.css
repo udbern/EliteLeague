@@ -9,35 +9,54 @@
 }
 
 body {
-    background-image: url('../assets/bgbody.png');
-    background-size: cover; /* or contain, depending on your preference */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* keeps the image fixed during scroll */
-     
-    background-blend-mode: multiply;
-    background-color: #e0dbdb;
-
+  background-image: url('../assets/bgbody.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-blend-mode: multiply;
+  background-color: #e0dbdb;
 }
+
 html {
-    scroll-behavior: smooth;
-  }
-  
-  /* Add smooth scrolling to all scrollable elements */
-  * {
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
+  scroll-behavior: smooth;
+}
+
+* {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
 
 /* Utility classes for fonts */
 .font-montserrat {
-    font-family: var(--font-montserrat);
+  font-family: var(--font-montserrat);
 }
 
 .font-mukta {
-    font-family: var(--font-mukta);
+  font-family: var(--font-mukta);
 }
 
 .font-raleway {
-    font-family: var(--font-raleway);
+  font-family: var(--font-raleway);
 }
+
+/* Custom 4-color gradient */
+.custom-gradient-4 {
+  background-image: linear-gradient(
+    to right,
+    #A723EE 0%,
+    #453DE4 45%,
+    #A112BA 75%,
+    #96F6E6 100%
+  );
+}
+/* Custom 3-color gradient */
+.custom-gradient-3 {
+  background-image: linear-gradient(
+    -135deg,         /* <--- This sets the angle */
+    #A723EE 0%,
+    #453DE4 45%,
+    #A112BA 75%
+  );
+}
+

@@ -184,7 +184,7 @@ export default function TopScorers() {
             <Button
               onClick={() => setShowAll(!showAll)}
               variant="outline"
-              className="w-fit text-[#36053A]/80 border hover:bg-white/20"
+              className="w-fit text-[#36053A]/80 border cursor-pointer hover:bg-white/20"
             >
               {showAll ? "Show Less" : "Show All"}
             </Button>

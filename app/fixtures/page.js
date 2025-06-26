@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Load from "@/assets/logo.png";
 import Image from "next/image";
+import { ChevronDown } from "lucide-react";
 import "@/styles/scrollbar.css";
 
 export default function FixturesPage() {
@@ -109,8 +110,9 @@ export default function FixturesPage() {
       <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
         <div className="flex justify-center items-center mt-10 mb-10">
           <DropdownMenu className="">
-            <DropdownMenuTrigger className="px-5 py-1 bg-white text-[#36053A]/80 rounded-md border focus:outline-none hover:bg-gray-200 text-sm font-montserrat">
-              {selectedRound || "Select Round"}
+            <DropdownMenuTrigger className="px-5 py-2 cursor-pointer bg-white text-[#36053A]/80 rounded-md border focus:outline-none border-gray-400  hover:bg-gray-200 text-sm font-montserrat flex items-center gap-2">
+              <span>{selectedRound || "Select Round"}</span>
+              <ChevronDown className="w-4 h-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white rounded-md border border-[#36053A]/40 max-h-[320px] overflow-y-auto custom-scrollbar smooth-scroll">
               {allRounds.map((round) => (

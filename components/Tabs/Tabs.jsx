@@ -52,7 +52,7 @@ const Tabs = () => {
   };
 
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="w-full  overflow-x-auto">
 
       <div className="max-w-5xl mx-auto px-4">
         <nav className="flex items-center space-x-1.5 md:space-x-4 font-montserrat py-2 scrollbar-hide">
@@ -93,7 +93,7 @@ const Tabs = () => {
                 onValueChange={handleCompetitionChange}
                 disabled={loading || competitions.length === 0}
               >
-                <SelectTrigger className="bg-transparent border-none outline-0    text-white hover:text-white/80 p-1 h-auto font-bold text-sm font-montserrat focus:ring-none focus:ring-transparent  shadow-none">
+                <SelectTrigger className="bg-transparent border-none outline-0 cursor-pointer    text-white hover:text-white/80 p-1 h-auto font-bold text-sm font-montserrat focus:ring-none focus:ring-transparent  shadow-none">
                   <div className="flex items-center space-x-1">
                     <span className="whitespace-nowrap">
                       {loading 
@@ -110,7 +110,7 @@ const Tabs = () => {
                     <SelectItem 
                       key={competition._id} 
                       value={competition._id}
-                      className="text-gray-800 hover:bg-[#36053A]/70 hover:text-white  "
+                      className="text-gray-800 hover:bg-gradient-to-r cursor-pointer from-[#453DE4]/80 via-[#A723EE]/100 to-[#96F6E6]/100 hover:text-white  "
                     >
                       {competition.name}
                     </SelectItem>

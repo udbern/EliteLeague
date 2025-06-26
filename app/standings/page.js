@@ -55,7 +55,7 @@ export default function StandingsPage() {
               value="short" 
               className={`px-4 py-2 rounded-md font-medium transition-colors ${
                 activeTab === "short" 
-                  ? "bg-[#36053A] text-white" 
+                  ? "custom-gradient-3 text-white" 
                   : "text-[#36053A] hover:bg-[#36053A]/10"
               }`}
             >
@@ -65,7 +65,7 @@ export default function StandingsPage() {
               value="full" 
               className={`px-4 py-2 rounded-md font-medium transition-colors ${
                 activeTab === "full" 
-                  ? "bg-[#36053A] text-white" 
+                  ? "custom-gradient-3 text-white" 
                   : "text-[#36053A] hover:bg-[#36053A]/10"
               }`}
             >
@@ -75,7 +75,7 @@ export default function StandingsPage() {
               value="form" 
               className={`px-4 py-2 rounded-md font-medium transition-colors ${
                 activeTab === "form" 
-                  ? "bg-[#36053A] text-white" 
+                  ? "custom-gradient-3 text-white" 
                   : "text-[#36053A] hover:bg-[#36053A]/10"
               }`}
             >

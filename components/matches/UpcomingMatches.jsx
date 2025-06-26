@@ -6,6 +6,9 @@ import { MatchCard } from "@/components/MatchCard";
 import client from "@/lib/sanityClient";
 import { useSeason } from "@/components/SeasonProvider";
 import { useCompetition } from "@/components/CompetitionProvider";
+import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const LoadingCard = () => (
   <div className="bg-white rounded-lg shadow p-4 animate-pulse font-montserrat">
@@ -57,6 +60,7 @@ export default function UpcomingMatches() {
   const [loading, setLoading] = useState(true);
   const { selectedSeason } = useSeason();
   const { selectedCompetition } = useCompetition();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const fetchUpcomingMatches = async () => {
@@ -136,8 +140,8 @@ export default function UpcomingMatches() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className=" bg-gradient-to-br from-[#622085] ml-3 md:ml-0 via-[#A112BA] to-[#0f5c4f] hover:bg-white/20 text-white border-none size-10 md:size-14 text-sm" />
-            <CarouselNext className=" bg-gradient-to-br from-[#622085] mr-3 md:mr-0 via-[#A112BA] to-[#0f5c4f] hover:bg-white/20 text-white border-none size-10 md:size-14 text-sm" />
+            <CarouselPrevious className=" cursor-pointer ml-3 md:ml-0 custom-gradient-3 hover:bg-white/20 text-white border-none size-10 md:size-12 text-2xl" />
+            <CarouselNext className="  cursor-pointer mr-3 md:mr-0  custom-gradient-3  hover:bg-white/20 text-white border-none size-10 md:size-12 text-2xl" />
           </Carousel>
         )}
       </div>

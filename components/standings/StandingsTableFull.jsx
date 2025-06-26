@@ -61,7 +61,7 @@ const StandingsPage = () => {
 
 const StandingsTableFull = ({ data, title, getImageSrc }) => {
   return (
-    <section className="mb-[12px] pl-1 pr-1 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
+    <section className="mb-[12px]   pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
      
       <div className="overflow-x-auto">
         <table className="w-full font-montserrat font-semibold text-xs md:text-base">
