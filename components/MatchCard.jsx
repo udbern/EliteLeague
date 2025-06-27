@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { urlFor } from "@/lib/sanityClient";
+import { formatFixtureDate } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,12 +9,7 @@ export const MatchCard = ({ match }) => {
   const [formattedDate, setFormattedDate] = useState("");
 
   useEffect(() => {
-    const dateString = new Date(match.date).toLocaleDateString("en-GB", {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-    });
-    setFormattedDate(dateString);
+    setFormattedDate(formatFixtureDate(match.date));
   }, [match.date]);
 
   const getStatusStyle = (status) => {
@@ -50,13 +46,13 @@ export const MatchCard = ({ match }) => {
           : ""
       }`}
     >
-      <div className="flex items-center justify-between mb-4 font-montserrat">
+      <div className="flex items-center  justify-between mb-1.5 font-montserrat">
         <div className="text-xs sm:text-sm text-[#36053A]/50 font-semibold font-montserrat">
           {formattedDate} • {match.time}
         </div>
         {match.status && (
           <span
-            className={`text-[10px] sm:text-xs px-2 py-1 font-semibold  text-[#36053A]/80 rounded-full font-montserrat ${getStatusStyle(
+            className={`text-[10px] sm:text-xs px-2  font-semibold  text-[#36053A]/80 rounded-full font-montserrat ${getStatusStyle(
               match.status
             )}`}
           >
@@ -65,14 +61,14 @@ export const MatchCard = ({ match }) => {
         )}
       </div>
 
-      <div className="flex items-center justify-between  mb-5 font-montserrat">
+      <div className="flex items-center justify-between  mb-1.5 font-montserrat">
         <div className="flex flex-col items-center w-1/3  p-2 font-montserrat">
           <Image
             src={getImageSrc(match.homeLogo)}
             alt={match.homeTeam}
             width={48}
             height={48}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full  object-center  object-cover  mb-2"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full  object-center  object-cover  mb-1 "
           />
           <span className="text-xs sm:text-sm text-[#36053A]/80 text-center font-semibold font-montserrat">
             {match.homeTeam}
@@ -93,7 +89,7 @@ export const MatchCard = ({ match }) => {
             alt={match.awayTeam}
             width={48}
             height={48}
-            className="w-10 h-10 sm:w-12 sm:h-12  rounded-full overflow-hidden object-center  object-cover  mb-2"
+            className="w-10 h-10 sm:w-12 sm:h-12  rounded-full overflow-hidden object-center  object-cover  mb-1"
           />
           <span className="text-xs sm:text-sm font-semibold text-[#36053A]/80 text-center font-montserrat">
             {match.awayTeam}

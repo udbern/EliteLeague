@@ -8,6 +8,8 @@ import client from "@/lib/sanityClient";
 import { motion } from "framer-motion";
 import Load from "@/assets/logo.png";
 import Image from "next/image";
+import { formatFixtureTime } from "@/lib/utils";
+import "@/styles/scrollbar.css";
 
 const CupStages = () => {
   const { selectedCompetition } = useCompetition();
@@ -207,10 +209,7 @@ const CupStages = () => {
                         <MatchCard key={fixture._id} match={{
                           id: fixture._id,
                           date: fixture.matchDate,
-                          time: new Date(fixture.matchDate).toLocaleTimeString("en-GB", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          }),
+                          time: formatFixtureTime(fixture.matchDate),
                           homeTeam: fixture.homeTeam?.name || "TBD",
                           homeLogo: fixture.homeTeam?.logo,
                           awayTeam: fixture.awayTeam?.name || "TBD",

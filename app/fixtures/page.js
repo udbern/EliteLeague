@@ -6,6 +6,7 @@ import CupStages from "@/components/CupStages";
 import { fetchFixtures as fetchAllFixtures } from "@/lib/fetchFixtures";
 import { useSeason } from "@/components/SeasonProvider";
 import { useCompetition } from "@/components/CompetitionProvider";
+import { formatFixtureTime } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +22,7 @@ export default function FixturesPage() {
   const [fixtures, setFixtures] = useState([]);
   const [selectedRound, setSelectedRound] = useState("Round 1");
   const [loading, setLoading] = useState(true);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { selectedSeason } = useSeason();
   const { selectedCompetition } = useCompetition();
 
@@ -108,18 +110,18 @@ export default function FixturesPage() {
   return (
     <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
       <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
-        <div className="flex justify-center items-center mt-10 mb-10">
-          <DropdownMenu className="">
+        <div className="flex justify-center items-center mt-6 mb-10">
+          <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
             <DropdownMenuTrigger className="px-5 py-2 cursor-pointer bg-white text-[#36053A]/80 rounded-md border focus:outline-none border-gray-400  hover:bg-gray-200 text-sm font-montserrat flex items-center gap-2">
               <span>{selectedRound || "Select Round"}</span>
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ease-in-out ${dropdownOpen ? 'rotate-180' : ''}`} />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white rounded-md border border-[#36053A]/40 max-h-[320px] overflow-y-auto custom-scrollbar smooth-scroll">
               {allRounds.map((round) => (
                 <DropdownMenuItem 
                   key={round} 
                   onClick={() => setSelectedRound(round)} 
-                  className="text-sm hover:bg-[#36053A]/20  font-semibold font-montserrat text-[#36053A]/80"
+                  className="text-sm hover:bg-gradient-to-r  from-[#453DE4]/80 via-[#A723EE]/100 to-[#96F6E6]/100 cursor-pointer hover:text-white  font-semibold font-montserrat text-[#36053A]/80"
                 >
                   {round}
                 </DropdownMenuItem>
@@ -139,10 +141,7 @@ export default function FixturesPage() {
               // Defensive: ensure match.date is valid
               let time = '';
               if (match.date && !isNaN(Date.parse(match.date))) {
-                time = new Date(match.date).toLocaleTimeString("en-GB", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                });
+                time = formatFixtureTime(match.date);
               }
               return (
                 <MatchCard key={match._id} match={{

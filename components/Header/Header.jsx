@@ -61,21 +61,21 @@ const Header = () => {
 
           {/* Season Selector */}
           <div className="flex items-center font-montserrat">
-            <DropdownMenu  >
-              <DropdownMenuTrigger asChild onClick={() => setDropdownOpen((v) => !v)}>
+            <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
+              <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  className="text-white cursor-pointer font-montserrat overflow-hidden font-semibold border-gray-100 hover:bg-white/10 hover:text-white focus:ring-1 focus:ring-transparent "
+                  className="text-white cursor-pointer font-montserrat overflow-hidden font-semibold border-gray-100 hover:bg-white/10 hover:text-white focus:ring-1 focus:ring-transparent"
                 >
                   <span className="flex items-center gap-2">
                     {selectedSeason.name}
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
+                      className={`w-4 h-4 transition-transform duration-200 ease-in-out ${dropdownOpen ? 'rotate-180' : ''}`}
                     />
                   </span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 bg-white/95 border-none shadow-none" onCloseAutoFocus={() => setDropdownOpen(false)}>
+              <DropdownMenuContent align="end" className="w-48 bg-white/95 border-none shadow-none">
                 {[...seasons].sort((a, b) => {
                   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                   return months.indexOf(a.startDate) - months.indexOf(b.startDate);

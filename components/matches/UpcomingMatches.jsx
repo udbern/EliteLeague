@@ -6,6 +6,7 @@ import { MatchCard } from "@/components/MatchCard";
 import client from "@/lib/sanityClient";
 import { useSeason } from "@/components/SeasonProvider";
 import { useCompetition } from "@/components/CompetitionProvider";
+import { formatFixtureTime } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -58,6 +59,7 @@ const LoadingSection = () => (
 export default function UpcomingMatches() {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentRound, setCurrentRound] = useState("");
   const { selectedSeason } = useSeason();
   const { selectedCompetition } = useCompetition();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -67,29 +69,88 @@ export default function UpcomingMatches() {
       if (!selectedSeason?._id || !selectedCompetition?._id) return;
       
       setLoading(true);
-      const query = `*[_type == "fixture" && season._ref == $seasonId && competition._ref == $competitionId && status != "completed"] | order(date asc)[0...5] {
-        _id,
-        date,
-        status,
-        homeScore,
-        awayScore,
-        "homeTeam": homeTeam->{name, logo},
-        "awayTeam": awayTeam->{name, logo}
-      }`;
-
+      
       try {
-        const result = await client.fetch(query, { 
+        // First, get all fixtures to determine the next available round
+        const allFixturesQuery = `*[_type == "fixture" && season._ref == $seasonId && competition._ref == $competitionId] | order(round asc, matchDate asc) {
+          _id,
+          round,
+          status,
+          matchDate
+        }`;
+        
+        const allFixtures = await client.fetch(allFixturesQuery, { 
           seasonId: selectedSeason._id,
           competitionId: selectedCompetition._id 
+        });
+        
+        // Group fixtures by round and check completion status
+        const roundStatus = {};
+        allFixtures.forEach(fixture => {
+          if (!roundStatus[fixture.round]) {
+            roundStatus[fixture.round] = {
+              total: 0,
+              completed: 0,
+              fixtures: []
+            };
+          }
+          roundStatus[fixture.round].total++;
+          roundStatus[fixture.round].fixtures.push(fixture);
+          if (fixture.status === 'completed') {
+            roundStatus[fixture.round].completed++;
+          }
+        });
+        
+        // Find the next available round (first round that's not fully completed)
+        const rounds = Object.keys(roundStatus).sort((a, b) => {
+          const numA = parseInt(a.replace(/\D/g, ''));
+          const numB = parseInt(b.replace(/\D/g, ''));
+          return numA - numB;
+        });
+        
+        let nextRound = null;
+        for (const round of rounds) {
+          if (roundStatus[round].completed < roundStatus[round].total) {
+            nextRound = round;
+            break;
+          }
+        }
+        
+        // If all rounds are completed, show the last round
+        if (!nextRound && rounds.length > 0) {
+          nextRound = rounds[rounds.length - 1];
+        }
+        
+        setCurrentRound(nextRound || "");
+        
+        if (!nextRound) {
+          setMatches([]);
+          setLoading(false);
+          return;
+        }
+        
+        // Fetch upcoming matches for the next available round
+        const upcomingQuery = `*[_type == "fixture" && season._ref == $seasonId && competition._ref == $competitionId && round == $round && status != "completed"] | order(matchDate asc)[0...5] {
+          _id,
+          matchDate,
+          status,
+          round,
+          homeScore,
+          awayScore,
+          "homeTeam": homeTeam->{name, logo},
+          "awayTeam": awayTeam->{name, logo}
+        }`;
+
+        const result = await client.fetch(upcomingQuery, { 
+          seasonId: selectedSeason._id,
+          competitionId: selectedCompetition._id,
+          round: nextRound
         });
 
         const mapped = result.map((match) => ({
           id: match._id,
-          date: match.date,
-          time: new Date(match.date).toLocaleTimeString("en-GB", {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
+          date: match.matchDate,
+          time: formatFixtureTime(match.matchDate),
           homeTeam: match.homeTeam.name,
           homeLogo: match.homeTeam.logo,
           awayTeam: match.awayTeam.name,
@@ -97,6 +158,7 @@ export default function UpcomingMatches() {
           homeScore: match.homeScore,
           awayScore: match.awayScore,
           status: match.status,
+          round: match.round,
         }));
 
         setMatches(mapped);
@@ -117,13 +179,13 @@ export default function UpcomingMatches() {
   return (
     <section className="mb-8 bg-white rounded-[14px] p-6 font-montserrat">
       <h2 className="text-lg font-bold text-[#36053A]/80 mb-4 sm:mb-5 md:mb-6 font-montserrat">
-       Upcoming Matches
+       Upcoming Matches 
       </h2>
       <hr className="mb-2 text-[#36053A]/80" />
       <div className="max-w-xl mx-auto">
         {matches.length === 0 ? (
           <p className="text-center text-gray-500 py-8">
-            No upcoming matches for {selectedCompetition?.name}.
+            {currentRound ? `No upcoming matches for ${currentRound} in ${selectedCompetition?.name}.` : `No upcoming matches for ${selectedCompetition?.name}.`}
           </p>
         ) : (
           <Carousel

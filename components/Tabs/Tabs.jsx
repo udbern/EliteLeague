@@ -24,6 +24,7 @@ const TABS = [
 const Tabs = () => {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState(pathname);
+  const [competitionDropdownOpen, setCompetitionDropdownOpen] = useState(false);
   const { selectedCompetition, setSelectedCompetition, competitions, loading } = useCompetition();
   const { selectedSeason } = useSeason();
 
@@ -92,8 +93,10 @@ const Tabs = () => {
                 value={selectedCompetition?._id || ""}
                 onValueChange={handleCompetitionChange}
                 disabled={loading || competitions.length === 0}
+                open={competitionDropdownOpen}
+                onOpenChange={setCompetitionDropdownOpen}
               >
-                <SelectTrigger className="bg-transparent border-none outline-0 cursor-pointer    text-white hover:text-white/80 p-1 h-auto font-bold text-sm font-montserrat focus:ring-none focus:ring-transparent  shadow-none">
+                <SelectTrigger className="bg-transparent border-none outline-0 cursor-pointer text-white hover:text-white/80 p-1 h-auto font-bold text-sm font-montserrat focus:ring-none focus:ring-transparent shadow-none [&>svg]:hidden">
                   <div className="flex items-center space-x-1">
                     <span className="whitespace-nowrap">
                       {loading 
@@ -103,14 +106,17 @@ const Tabs = () => {
                         : selectedCompetition?.name || "Competition"
                       }
                     </span>
+                    <ChevronDown 
+                      className={`w-4 h-4 transition-transform duration-200 ease-in-out ${competitionDropdownOpen ? 'rotate-180' : ''}`}
+                    />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-white  font-montserrat mt-2 shadow-none border-one  border-gray-200">
+                <SelectContent className="bg-white font-montserrat mt-2 shadow-none border border-gray-200">
                   {competitions.map((competition) => (
                     <SelectItem 
                       key={competition._id} 
                       value={competition._id}
-                      className="text-gray-800 hover:bg-gradient-to-r cursor-pointer from-[#453DE4]/80 via-[#A723EE]/100 to-[#96F6E6]/100 hover:text-white  "
+                      className="text-gray-800 hover:bg-gradient-to-r cursor-pointer from-[#453DE4]/80 via-[#A723EE]/100 to-[#96F6E6]/100 hover:text-white"
                     >
                       {competition.name}
                     </SelectItem>

@@ -10,6 +10,8 @@ import client from "@/lib/sanityClient";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanityClient";
 import Load from "@/assets/logo.png";
+import { formatFixtureTime } from "@/lib/utils";
+import "@/styles/scrollbar.css";
 
 export default function CompetitionsPage() {
   const searchParams = useSearchParams();
@@ -325,10 +327,7 @@ export default function CompetitionsPage() {
                       <MatchCard key={match._id} match={{
                         id: match._id,
                         date: match.matchDate,
-                        time: new Date(match.matchDate).toLocaleTimeString("en-GB", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        }),
+                        time: formatFixtureTime(match.matchDate),
                         homeTeam: match.homeTeam.name,
                         homeLogo: match.homeTeam.logo,
                         awayTeam: match.awayTeam.name,

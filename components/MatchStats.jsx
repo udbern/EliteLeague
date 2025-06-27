@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanityClient";
+import { formatFixtureDate } from "@/lib/utils";
 
 const MatchStats = ({ match }) => {
   if (!match) return null;
@@ -20,12 +21,7 @@ const MatchStats = ({ match }) => {
   const [formattedDate, setFormattedDate] = useState("");
 
   useEffect(() => {
-    const dateString = new Date(match.date).toLocaleDateString("en-GB", {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-    });
-    setFormattedDate(dateString);
+    setFormattedDate(formatFixtureDate(match.date));
   }, [match.date]);
 
   const getStatusStyle = (status) => {
