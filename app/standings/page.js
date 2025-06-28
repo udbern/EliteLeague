@@ -14,7 +14,7 @@ export default function StandingsPage() {
 
   if (!selectedSeason) {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto px-4 py-15  flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <div className="text-center py-20">
             <h3 className="text-xl font-semibold text-gray-700 mb-2 font-montserrat">
@@ -31,7 +31,7 @@ export default function StandingsPage() {
 
   if (!selectedCompetition) {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto  px-4 py-15 flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <div className="text-center py-20">
             <h3 className="text-xl font-semibold text-gray-700 mb-2 font-montserrat">
@@ -47,7 +47,7 @@ export default function StandingsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+    <div className="container mx-auto px-4  py-10 flex justify-center font-semibold font-montserrat">
       <div className="w-full md:w-[50rem]">
         <Tabs defaultValue="short" value={activeTab} onValueChange={setActiveTab} className="mb-8">
           <TabsList className="bg-white/80 backdrop-blur-sm p-1 rounded-lg">
