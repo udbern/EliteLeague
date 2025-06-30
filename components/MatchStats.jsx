@@ -79,7 +79,7 @@ const MatchStats = ({ match }) => {
 
   const statDefinitions = [
     { key: 'shots', label: 'Total Shots', highlightHigher: true },
-    { key: 'shotsOnGoal', label: 'Shots on target', highlightHigher: true },
+    { key: 'shotsOnTarget', label: 'Shots on target', highlightHigher: true },
     { key: 'fouls', label: 'Fouls', highlightHigher: false },
     { key: 'offsides', label: 'Offsides', highlightHigher: false },
     { key: 'corners', label: 'Corner Kicks', highlightHigher: false },
@@ -106,19 +106,29 @@ const MatchStats = ({ match }) => {
             
             {/* Possession Bar */}
             <div className="mb-6">
-              <div className="flex justify-between text-xs font-semibold mb-1 text-gray-700">
-                <span>{match.homeTeamStats.possession}%</span>
-                <span>{match.awayTeamStats.possession}%</span>
-              </div>
-              <div className="flex h-2.5 rounded-full overflow-hidden">
-                <div 
-                  className="bg-[#622085]" 
-                  style={{ width: `${match.homeTeamStats.possession}%` }}
-                ></div>
-                <div 
-                  className="bg-[#A112BA]" 
-                  style={{ width: `${match.awayTeamStats.possession}%` }}
-                ></div>
+              {/* New Possession Bar with values inside */}
+              <div className="flex h-7 rounded-full overflow-hidden w-full text-xs font-bold">
+                {(() => {
+                  const home = match.homeTeamStats.possession || 0;
+                  const away = match.awayTeamStats.possession || 0;
+                  const homeIsHigher = home > away;
+                  const homeColor = 'bg-[#453DE4]/80 text-white';
+                  const awayColor = 'bg-[#A723EE]/100 text-white';
+                  return <>
+                    <div
+                      className={`flex items-center justify-center transition-all duration-300 ${homeColor}`}
+                      style={{ width: `${home}%` }}
+                    >
+                      {home > 0 && <span className="w-full text-center">{home}%</span>}
+                    </div>
+                    <div
+                      className={`flex items-center justify-center transition-all duration-300 ${awayColor}`}
+                      style={{ width: `${away}%` }}
+                    >
+                      {away > 0 && <span className="w-full text-center">{away}%</span>}
+                    </div>
+                  </>;
+                })()}
               </div>
             </div>
 
@@ -127,32 +137,10 @@ const MatchStats = ({ match }) => {
               {statDefinitions.map((stat, index) => {
                 const homeValue = match.homeTeamStats[stat.key] || 0;
                 const awayValue = match.awayTeamStats[stat.key] || 0;
-                
-                let homeBadgeClass = "bg-gray-200 text-gray-800";
-                let awayBadgeClass = "bg-gray-200 text-gray-800";
-
-                if (homeValue === awayValue) {
-                  // If values are equal, both use the specified colors
-                  homeBadgeClass = "bg-[#622085] text-white";
-                  awayBadgeClass = "bg-[#A112BA] text-white";
-                } else if (stat.highlightHigher) {
-                  if (homeValue > awayValue) {
-                    homeBadgeClass = "bg-[#622085] text-white";
-                    awayBadgeClass = "bg-[#A112BA] text-white";
-                  } else {
-                    homeBadgeClass = "bg-[#A112BA] text-white";
-                    awayBadgeClass = "bg-[#622085] text-white";
-                  }
-                } else { // highlightHigher is false, so highlight lower value
-                  if (homeValue < awayValue) {
-                    homeBadgeClass = "bg-[#622085] text-white";
-                    awayBadgeClass = "bg-[#A112BA] text-white";
-                  } else {
-                    homeBadgeClass = "bg-[#A112BA] text-white";
-                    awayBadgeClass = "bg-[#622085] text-white";
-                  }
-                }
-
+                // Home: always bg-[#453DE4]/80, always text-white
+                const homeBadgeClass = `bg-[#453DE4]/80 text-white`;
+                // Away: keep as before but always text-white
+                const awayBadgeClass = 'bg-[#A723EE]/100 text-white';
                 return (
                   <div key={index} className="flex items-center justify-between">
                     <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${homeBadgeClass}`}>
