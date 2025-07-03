@@ -7,6 +7,7 @@ import { urlFor } from "@/lib/sanityClient";
 import { useSeason } from "@/components/SeasonProvider";
 import { useCompetition } from "@/components/CompetitionProvider";
 import Load from "@/assets/logo.png"
+import TeamLogo from "@/components/ui/TeamLogo";
 
 const Top3 = ({ title }) => {
   const [standings, setStandings] = useState([]);
@@ -77,11 +78,10 @@ const Top3 = ({ title }) => {
                   <TableCell className="text-center font-bold">{team.position}</TableCell>
                   <TableCell>
                     <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
-                      <Image
-                        src={logoUrl}
+                      <TeamLogo
+                        logo={team.logo}
                         alt={team.name}
-                        width={24}
-                        height={24}
+                        size={24}
                         className="object-contain object-center overflow-hidden rounded-full"
                       />
                       <span className="font-bold text-#36053A]/80 truncate max-w-[100px] sm:max-w-[150px] md:max-w-none">

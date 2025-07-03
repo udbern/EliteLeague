@@ -8,6 +8,8 @@ import Image from "next/image";
 import { useSeason } from "@/components/SeasonProvider";
 import { useCompetition } from "@/components/CompetitionProvider";
 import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
+import TeamLogo from "@/components/ui/TeamLogo";
 
 import Load from "@/assets/logo.png"
 
@@ -84,16 +86,11 @@ const AnimatedScorerRow = ({ player }) => (
     </TableCell>
     <TableCell>
       <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4">
-        <Image
-          src={
-            player.teamLogo
-              ? urlFor(player.teamLogo).url()
-              : "/default-logo.png"
-          }
+        <TeamLogo
+          logo={player.teamLogo}
           alt={player.team}
-          width={24}
-          height={24}
-          className="object-contain object-center rounded-full"
+          size={24}
+          className="mr-2"
         />
         <span className="font-bold text-[#36053A]/80 truncate max-w-[100px] sm:max-w-[150px] md:max-w-none">
           {player.player}
@@ -184,9 +181,18 @@ export default function TopScorers() {
             <Button
               onClick={() => setShowAll(!showAll)}
               variant="outline"
-              className="w-fit text-[#36053A]/80 border cursor-pointer hover:bg-white/20"
+              className="w-fit text-[#36053A]/80 border cursor-pointer hover:bg-white/20 flex items-center gap-2"
             >
-              {showAll ? "Show Less" : "Show All"}
+              <span>{showAll ? "Show Less" : "Show All"}</span>
+              <motion.span
+                animate={{ rotate: showAll ? 180 : 0 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 24 }}
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.92 }}
+                className="inline-block"
+              >
+                <ChevronDown className="w-5 h-5" />
+              </motion.span>
             </Button>
           </motion.div>
         )}

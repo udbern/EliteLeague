@@ -8,6 +8,7 @@ import { useSeason } from "@/components/SeasonProvider";
 import { useCompetition } from "@/components/CompetitionProvider";
 import "./loader.css";
 import Load from "@/assets/logo.png"
+import TeamLogo from "@/components/ui/TeamLogo";
 
 const StandingsPage = () => {
   const [standings, setStandings] = useState([]);
@@ -87,12 +88,11 @@ const StandingsTableFull = ({ data, title, getImageSrc }) => {
                     <TableCell className="text-center font-bold">{team.position}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-1 md:gap-2">
-                        <Image
-                          src={logoUrl}
+                        <TeamLogo
+                          logo={team.logo}
                           alt={team.name}
-                          width={20}
-                          height={20}
-                          className="rounded-full object-contain w-[16px] h-[16px] md:w-[24px] md:h-[24px]"
+                          size={24}
+                          className="w-[16px] h-[16px] md:w-[24px] md:h-[24px]"
                         />
                         <span className="font-semibold text-[10px] md:text-base truncate max-w-[100px] md:max-w-full">{team.shortName}</span>
                       </div>

@@ -56,7 +56,7 @@ const Tabs = () => {
     <div className="w-full  overflow-x-auto">
 
       <div className="max-w-5xl mx-auto px-4">
-        <nav className="flex items-center space-x-1.5 md:space-x-4 font-montserrat py-2 scrollbar-hide">
+        <nav className="flex items-center space-x-1.5 md:space-x-4 font-montserrat py-1 scrollbar-hide">
           {TABS.map((tab) => {
             const isActive = activeTab === tab.path;
             return (

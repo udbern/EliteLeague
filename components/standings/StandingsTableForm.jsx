@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import { TableHeader, TableCell, FormIndicator } from "./TableHelpers";
 import { urlFor } from "@/lib/sanityClient";
+import TeamLogo from "@/components/ui/TeamLogo";
 
 const StandingsTableForm = ({ data, title }) => {
   if (!data || data.length === 0) {
@@ -35,12 +35,11 @@ const StandingsTableForm = ({ data, title }) => {
                 <TableCell>
                   <div className="flex items-center gap-1 md:gap-2">
                     {team.logo && (
-                      <Image
-                        src={urlFor(team.logo).width(40).height(40).url()}
+                      <TeamLogo
+                        logo={team.logo}
                         alt={team.name}
-                        width={20}
-                        height={20}
-                        className="rounded-full object-contain w-[16px] h-[16px] md:w-[24px] md:h-[24px]"
+                        size={24}
+                        className="w-[16px] h-[16px] md:w-[24px] md:h-[24px]"
                       />
                     )}
                     <span className="font-semibold text-[10px] md:text-sm truncate max-w-[100px] md:max-w-full">{team.name}</span>

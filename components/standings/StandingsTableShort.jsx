@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { TableHeader, TableCell } from "./TableHelpers";
-import Image from "next/image";
 import { urlFor } from "@/lib/sanityClient";
+import TeamLogo from "@/components/ui/TeamLogo";
 
 const StandingsTableShort = ({ data, title }) => {
   // Helper to get image URL from Sanity or fallback local / placeholder
@@ -48,12 +48,11 @@ const StandingsTableShort = ({ data, title }) => {
                   <TableCell className="text-center font-bold">{team.position}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-1 md:gap-2">
-                      <Image
-                        src={logoUrl}
+                      <TeamLogo
+                        logo={team.logo}
                         alt={team.name}
-                        width={20}
-                        height={20}
-                        className="rounded-full object-contain w-[16px] h-[16px] md:w-[24px] md:h-[24px]"
+                        size={24}
+                        className="w-[16px] h-[16px] md:w-[24px] md:h-[24px]"
                       />
                       <span className="font-semibold text-[10px] md:text-sm truncate max-w-[100px] md:max-w-full">{team.name}</span>
                     </div>

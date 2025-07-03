@@ -53,7 +53,7 @@ const Header = () => {
     >
       <nav className="custom-gradient-4">
         {/* Top Bar */}
-        <div className="flex justify-between items-center px-3 py-6 md:py-3 md:px-4 md:max-w-5xl md:mx-auto">
+        <div className="flex justify-between items-center px-3 py-2  md:px-4 md:max-w-5xl md:mx-auto">
           {/* Logo Section */}
           <div className="flex items-center">
             <Logo className="h-10 mr-4" />
@@ -92,7 +92,7 @@ const Header = () => {
                       </span>
                     </div>
                     {season.isActive && (
-                      <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                      <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
                     )}
                   </DropdownMenuItem>
                 ))}
