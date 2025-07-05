@@ -12,7 +12,7 @@ export default function HomePage() {
 
   if (!selectedSeason) {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto px-4 py-10 flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <div className="text-center py-20">
             <h3 className="text-xl font-semibold text-gray-700 mb-2 font-montserrat">
@@ -29,7 +29,7 @@ export default function HomePage() {
 
   if (!selectedCompetition) {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto px-4 py-6 flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <div className="text-center py-20">
             <h3 className="text-xl font-semibold text-gray-700 mb-2 font-montserrat">
@@ -45,7 +45,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="container mx-auto  py-15 flex justify-center font-semibold font-montserrat">
+    <div className="container mx-auto py-6 flex justify-center font-semibold font-montserrat">
       <div className=" rounded-[14px] w-full md:w-[50rem] p-4">
         <div className="mb-8 relative">
           {/* Explicitly set showFull to false */}

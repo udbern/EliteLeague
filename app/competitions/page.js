@@ -95,7 +95,7 @@ export default function CompetitionsPage() {
 
   if (!selectedSeason) {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto px-4 py-6 flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <div className="text-center py-20">
             <div className="text-6xl mb-4">🏆</div>
@@ -113,7 +113,7 @@ export default function CompetitionsPage() {
 
   if (competitionsLoading) {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto px-4 py-6 flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <div className="flex justify-center items-center py-20">
             <Image src={Load} alt="Loading" className="animate-pulse object-center object-contain" width={30} height={30} />
@@ -125,7 +125,7 @@ export default function CompetitionsPage() {
 
   if (competitions.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto px-4 py-6 flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <div className="text-center py-20">
             <div className="text-6xl mb-4">🏆</div>
@@ -143,7 +143,7 @@ export default function CompetitionsPage() {
 
   if (!selectedCompetition) {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto px-4 py-6 flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-[#36053A] font-montserrat mb-4">
@@ -219,7 +219,7 @@ export default function CompetitionsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+    <div className="container mx-auto px-4 py-6 flex justify-center font-semibold font-montserrat">
       <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
         {/* Competition Header */}
         <div className="mb-8">

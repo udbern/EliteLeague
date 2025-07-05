@@ -63,7 +63,7 @@ export default function FixturesPage() {
 
   if (!selectedSeason) {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto px-4 py-6 flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <div className="text-center py-20">
             <h3 className="text-xl font-semibold text-gray-700 mb-2 font-montserrat">
@@ -80,7 +80,7 @@ export default function FixturesPage() {
 
   if (!selectedCompetition) {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto px-4 py-6 flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <div className="text-center py-20">
             <h3 className="text-xl font-semibold text-gray-700 mb-2 font-montserrat">
@@ -98,7 +98,7 @@ export default function FixturesPage() {
   // Show CupStages component for cup competitions
   if (selectedCompetition.type === 'cup') {
     return (
-      <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+      <div className="container mx-auto px-4 py-6 flex justify-center font-semibold font-montserrat">
         <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
           <CupStages />
         </div>
@@ -108,7 +108,7 @@ export default function FixturesPage() {
 
   // Regular fixtures view for league and other competitions
   return (
-    <div className="container mx-auto px-4 py-15 flex justify-center font-semibold font-montserrat">
+    <div className="container mx-auto px-4 py-10 flex justify-center font-semibold font-montserrat">
       <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
         <div className="flex justify-center items-center mt-6 mb-10">
           <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
