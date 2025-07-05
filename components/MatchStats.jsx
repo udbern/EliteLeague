@@ -93,21 +93,21 @@ const MatchStats = ({ match }) => {
   ];
 
   return (
-    <div className="max-w-5xl md:max-w-4xl  mx-auto py-6 px-2 md:px-6 font-montserrat bg-white rounded-[15px] min-h-screen">
+    <div className="max-w-5xl md:max-w-4xl  mx-auto py-6 px-2 md:px-6 font-montserrat bg-gray-100 rounded-[15px] min-h-screen">
       <div className=" rounded-lg  p-4 md:p-6">
         
 
         {/* Match Facts Section */}
         {match.homeTeamStats && match.awayTeamStats && (
           <div className=" rounded-lg p-4 mb-6 ">
-            <h3 className="text-lg font-bold text-[#36053A] mb-4 text-center">
+            <h3 className="text-base font-bold text-[#36053A] mb-4 text-center font-montserrat">
               Match Facts
             </h3>
             
             {/* Possession Bar */}
             <div className="mb-6">
               {/* New Possession Bar with values inside */}
-              <div className="flex h-7 rounded-full overflow-hidden w-full text-xs font-bold">
+              <div className="flex h-7 rounded-full overflow-hidden w-full text-xs font-bold font-montserrat">
                 {(() => {
                   const home = match.homeTeamStats.possession || 0;
                   const away = match.awayTeamStats.possession || 0;
@@ -146,7 +146,7 @@ const MatchStats = ({ match }) => {
                     <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${homeBadgeClass}`}>
                       {homeValue}
                     </span>
-                    <span className="flex-1 text-center text-sm font-semibold text-[#36053A] mx-2">
+                    <span className="flex-1 text-center text-xs font-semibold text-[#36053A] mx-2 font-montserrat">
                       {stat.label}
                     </span>
                     <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${awayBadgeClass}`}>
@@ -162,15 +162,15 @@ const MatchStats = ({ match }) => {
         {/* Match Events Timeline */}
         {match.matchEvents?.length > 0 && (
           <div className=" rounded-lg p-4 shadow-sm border border-gray-100">
-            <h3 className="text-lg font-bold text-[#36053A] mb-4 text-center">Match Events</h3>
+            <h3 className="text-base font-bold text-[#36053A] mb-4 text-center font-montserrat">Match Events</h3>
             <div className="space-y-4">
               {match.matchEvents
                 .sort((a, b) => a.time - b.time)
                 .map((event, index) => (
-                  <div key={index} className="flex items-center text-sm text-gray-700">
+                  <div key={index} className="flex items-center text-xs text-gray-700 font-montserrat">
                     <span className="w-10 text-right font-semibold text-[#36053A]">{event.time}'</span>
                     <div className="flex-1 mx-2 flex items-center">
-                      <span className="mr-2 text-base align-middle">
+                      <span className="mr-2 text-sm align-middle">
                         {getEventIcon(event.type)}
                       </span>
                       <span className={`${getEventColor(event.type, event.team)}`}>

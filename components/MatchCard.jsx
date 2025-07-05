@@ -47,12 +47,12 @@ export const MatchCard = ({ match }) => {
       }`}
     >
       <div className="flex items-center  justify-between mb-1.5 font-montserrat">
-        <div className="text-xs sm:text-sm text-[#36053A]/50 font-semibold font-montserrat">
+        <div className="text-[10px] sm:text-sm text-[#36053A]/50 font-semibold font-montserrat">
           {formattedDate} • {match.time}
         </div>
         {match.status && (
           <span
-            className={`text-[10px] sm:text-xs px-2  font-semibold  text-[#36053A]/80 rounded-full font-montserrat ${getStatusStyle(
+            className={`text-[8px] sm:text-xs px-2 py-0.5  font-semibold  text-[#36053A]/80 rounded-full font-montserrat ${getStatusStyle(
               match.status
             )}`}
           >
@@ -61,20 +61,20 @@ export const MatchCard = ({ match }) => {
         )}
       </div>
 
-      <div className="flex items-center justify-between  mb-1.5 font-montserrat">
-        <div className="flex flex-col items-center w-1/3  p-2 font-montserrat">
+      <div className="flex items-center justify-between  px-1 font-montserrat">
+        <div className="flex flex-col items-center  w-1/3  p-2 font-montserrat">
           <TeamLogo
             logo={match.homeLogo}
             alt={match.homeTeam}
-            size={48}
+            size={30}
             className="mb-1"
           />
-          <span className="text-xs sm:text-sm text-[#36053A]/80 text-center font-semibold font-montserrat">
+          <span className="text-[10px] sm:text-sm text-[#36053A]/80 text-center font-semibold font-montserrat">
             {match.homeTeam}
           </span>
         </div>
 
-        <div className="text-lg sm:text-xl font-semibold text-[#36053A]/80 font-montserrat">
+        <div className="text-sm sm:text-xl font-semibold text-[#36053A]/80 font-montserrat">
           {match.status === "completed" &&
           match.homeScore != null &&
           match.awayScore != null
@@ -86,10 +86,10 @@ export const MatchCard = ({ match }) => {
           <TeamLogo
             logo={match.awayLogo}
             alt={match.awayTeam}
-            size={48}
+            size={30}
             className="mb-1"
           />
-          <span className="text-xs sm:text-sm font-semibold text-[#36053A]/80 text-center font-montserrat">
+          <span className="text-[10px] sm:text-sm font-semibold text-[#36053A]/80 text-center font-montserrat">
             {match.awayTeam}
           </span>
         </div>

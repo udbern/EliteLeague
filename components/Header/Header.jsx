@@ -92,7 +92,10 @@ const Header = () => {
                       </span>
                     </div>
                     {season.isActive && (
-                      <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
+                      <div className="relative">
+                        <div className="w-2 h-2 rounded-full bg-red-500 animate-smooth-pulse absolute inset-0" />
+                        <div className="w-2 h-2 rounded-full bg-red-600 relative z-10" />
+                      </div>
                     )}
                   </DropdownMenuItem>
                 ))}

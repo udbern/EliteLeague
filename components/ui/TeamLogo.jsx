@@ -20,7 +20,7 @@ export default function TeamLogo({ logo, alt = "Team Logo", size = 24, className
       alt={alt}
       width={size}
       height={size}
-      className={`object-contain object-center rounded-full w-[${size}px] h-[${size}px] ${className}`}
+      className={`object-contain object-center rounded-full max-w-[${size}px] max-h-[${size}px] ${className}`}
       unoptimized
     />
   );

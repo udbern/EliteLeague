@@ -185,7 +185,7 @@ export default function UpcomingMatches() {
       <div className="max-w-xl mx-auto">
         {matches.length === 0 ? (
           <p className="text-center text-gray-500 py-8">
-            {currentRound ? `No upcoming matches for ${currentRound} in ${selectedCompetition?.name}.` : `No upcoming matches for ${selectedCompetition?.name}.`}
+            No matches
           </p>
         ) : (
           <Carousel

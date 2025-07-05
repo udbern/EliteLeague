@@ -15,23 +15,23 @@ export default async function MatchStatsPage({ params }) {
   return (
     <>
       {/* Header with match result */}
-      <div className="bg-white rounded-lg  p-4 md:p-6 mb-6 flex flex-col items-center">
-        <div className="flex items-center w-full justify-between mb-2">
-          <div className="flex flex-col items-center flex-1">
+      <div className="bg-gray-100 rounded-lg  p-4 md:p-6 mb-2 flex flex-col items-center">
+        <div className="flex items-center w-full justify-between ">
+          <div className="flex flex-col  items-center flex-1">
             {match.homeTeam?.logo && (
               <Image
                 src={match.homeTeam.logo}
                 alt={match.homeTeam.name}
                 width={48}
                 height={48}
-                className="w-12 h-12 rounded-full object-contain mb-1"
+                className="max-w-10 max-h-10 rounded-full object-contain object-center mb-1"
               />
             )}
-            <span className="text-sm font-semibold text-[#36053A] text-center">
+            <span className="text-[12px] md:text-sm font-semibold text-[#36053A] text-center">
               {match.homeTeam.name}
             </span>
           </div>
-          <div className="text-2xl font-bold text-[#36053A] mx-4">
+          <div className=" text-base  md:text-2xl font-bold text-[#36053A] mx-4">
             {match.homeScore} - {match.awayScore}
           </div>
           <div className="flex flex-col items-center flex-1">
@@ -41,10 +41,10 @@ export default async function MatchStatsPage({ params }) {
                 alt={match.awayTeam.name}
                 width={48}
                 height={48}
-                className="w-12 h-12 rounded-full object-contain mb-1"
+                className="max-w-10 max-h-10 rounded-full object-contain object-center mb-1"
               />
             )}
-            <span className="text-sm font-semibold text-[#36053A] text-center">
+            <span className="text-[12px] md:text-sm font-semibold text-[#36053A] text-center">
               {match.awayTeam.name}
             </span>
           </div>
@@ -54,9 +54,9 @@ export default async function MatchStatsPage({ params }) {
         </div>
       </div>
       {/* Tabs */}
-      <Tabs defaultValue="stats" className="w-full mb-6">
-        <TabsList className="bg-gray-100 rounded-lg p-1 flex w-full">
-          <TabsTrigger value="stats" className="flex-1 font-bold text-[#36053A]">
+      <Tabs defaultValue="stats" className="w-full font-montserrat ">
+        <TabsList className=" rounded-lg p-1 flex w-full">
+          <TabsTrigger value="stats" className="flex-1 shadow-none font-bold  bg-gray-100  text-[#36053A]">
             Stats
           </TabsTrigger>
         </TabsList>
