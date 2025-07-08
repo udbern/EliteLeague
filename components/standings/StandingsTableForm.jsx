@@ -47,7 +47,7 @@ const StandingsTableForm = ({ data, title }) => {
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-1">
-                    {team.form?.map((result, index) => (
+                    {team.form?.slice().reverse().map((result, index) => (
                       <FormIndicator key={index} result={result} />
                     ))}
                   </div>
