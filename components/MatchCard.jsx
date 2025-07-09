@@ -62,11 +62,11 @@ export const MatchCard = ({ match }) => {
       </div>
 
       <div className="flex items-center justify-between  px-1 font-montserrat">
-        <div className="flex flex-col items-center  w-1/3  p-2 font-montserrat">
+        <div className="flex flex-col items-center  w-1/3    p-2 font-montserrat">
           <TeamLogo
             logo={match.homeLogo}
             alt={match.homeTeam}
-            size={30}
+            size={35}
             className="mb-1"
           />
           <span className="text-[10px] sm:text-sm text-[#36053A]/80 text-center font-semibold font-montserrat">
@@ -86,7 +86,7 @@ export const MatchCard = ({ match }) => {
           <TeamLogo
             logo={match.awayLogo}
             alt={match.awayTeam}
-            size={30}
+            size={35}
             className="mb-1"
           />
           <span className="text-[10px] sm:text-sm font-semibold text-[#36053A]/80 text-center font-montserrat">

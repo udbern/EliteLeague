@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/lib/sanityClient";
 import { formatFixtureDate } from "@/lib/utils";
+import TeamLogo from "@/components/ui/TeamLogo";
 
 const MatchStats = ({ match }) => {
   if (!match) return null;
