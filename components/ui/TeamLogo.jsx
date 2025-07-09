@@ -16,16 +16,16 @@ export default function TeamLogo({ logo, alt = "Team Logo", size = 35, className
   return (
     <div
       style={{ width: size, height: size }}
-      className={`flex items-center justify-center rounded-full overflow-hidden bg-white border border-gray-200`}
+      className={`flex items-center justify-center rounded-full overflow-hidden bg-white`}
     >
       <Image
-        src={getImageSrc(logo)}
-        alt={alt}
-        width={size}
-        height={size}
-        className="object-contain object-center w-full h-full"
-        unoptimized
-      />
+                src={getImageSrc(logo)}
+                alt={alt}
+                width={100}
+                height={100}
+                priority
+                className="h-full w-full rounded-full object-contain object-center "
+              />
     </div>
   );
 } 

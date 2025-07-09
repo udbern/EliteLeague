@@ -54,12 +54,7 @@ export default async function MatchStatsPage({ params }) {
         </div>
       </div>
       {/* Tabs */}
-      <Tabs defaultValue="stats" className="w-full font-montserrat ">
-        <TabsList className=" rounded-lg p-1 flex w-full">
-          <TabsTrigger value="stats" className="flex-1 shadow-none font-bold  bg-gray-100  text-[#36053A]">
-            Stats
-          </TabsTrigger>
-        </TabsList>
+      <Tabs defaultValue="stats" className="w-full  font-montserrat ">
         <TabsContent value="stats">
           <MatchStats match={match} />
         </TabsContent>

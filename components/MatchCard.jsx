@@ -66,8 +66,7 @@ export const MatchCard = ({ match }) => {
           <TeamLogo
             logo={match.homeLogo}
             alt={match.homeTeam}
-            size={35}
-            className="mb-1"
+            className=""
           />
           <span className="text-[10px] sm:text-sm text-[#36053A]/80 text-center font-semibold font-montserrat">
             {match.homeTeam}
@@ -86,8 +85,7 @@ export const MatchCard = ({ match }) => {
           <TeamLogo
             logo={match.awayLogo}
             alt={match.awayTeam}
-            size={35}
-            className="mb-1"
+            className=""
           />
           <span className="text-[10px] sm:text-sm font-semibold text-[#36053A]/80 text-center font-montserrat">
             {match.awayTeam}
