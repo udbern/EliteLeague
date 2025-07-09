@@ -162,7 +162,7 @@ const MatchStats = ({ match }) => {
 
         {/* Match Events Timeline */}
         {match.matchEvents?.length > 0 && (
-          <div className=" rounded-lg p-4 shadow-sm border border-gray-100">
+          <div className=" rounded-lg p-4 shadow-sm ">
             <h3 className="text-base font-bold text-[#36053A] mb-4 text-center font-montserrat">Match Events</h3>
             <div className="space-y-4">
               {match.matchEvents
