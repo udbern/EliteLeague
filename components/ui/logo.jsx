@@ -21,7 +21,7 @@ const Logo = () => {
         <span className="font-mukta text-3xl md:text-3xl font-extrabold capitalize">
           Elite League
         </span>
-        <p className="text-sm md:text-md font-semibol font-montserrat text-[12px] md:text-lg uppercase opacity-75 text-left">
+        <p className="text-sm md:text-md font-semibold font-montserrat text-[12px] md:text-lg uppercase opacity-75 text-left">
           nigeria
         </p>
       </div>
