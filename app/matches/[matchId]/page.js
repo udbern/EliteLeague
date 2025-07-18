@@ -4,12 +4,12 @@ import MatchStats from "@/components/MatchStats";
 import { fetchFixtureById } from "@/lib/fetchFixtures";
 import { notFound } from "next/navigation";
 import TeamLogo from "@/components/ui/TeamLogo";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import MatchStandings from "@/components/MatchStandings";
 import HeadToHead from "@/components/HeadToHead";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import Load from "@/assets/logo.png";
 
 export default function MatchStatsPage({ params }) {
   const { matchId } = params;
@@ -31,23 +31,23 @@ export default function MatchStatsPage({ params }) {
   if (!match) {
     return (
       <div className="flex justify-center items-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#36053A]"></div>
+        <Image src={Load} alt="Loading" className="animate-pulse object-center object-contain" width={30} height={30} />
       </div>
     );
   }
 
   const getStatusText = (status) => {
     switch (status) {
-      case 'completed':
-        return 'Full Time';
-      case 'in-progress':
-        return 'Live';
-      case 'scheduled':
-        return 'Scheduled';
-      case 'postponed':
-        return 'Postponed';
-      case 'cancelled':
-        return 'Cancelled';
+      case "completed":
+        return "Full Time";
+      case "in-progress":
+        return "Live";
+      case "scheduled":
+        return "Scheduled";
+      case "postponed":
+        return "Postponed";
+      case "cancelled":
+        return "Cancelled";
       default:
         return status;
     }
@@ -55,18 +55,18 @@ export default function MatchStatsPage({ params }) {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'completed':
-        return 'text-green-300';
-      case 'in-progress':
-        return 'text-red-300';
-      case 'scheduled':
-        return 'text-yellow-300';
-      case 'postponed':
-        return 'text-orange-300';
-      case 'cancelled':
-        return 'text-red-300';
+      case "completed":
+        return "text-green-300";
+      case "in-progress":
+        return "text-red-30";
+      case "scheduled":
+        return "text-yellow-300";
+      case "postponed":
+        return "text-orange-30";
+      case "cancelled":
+        return "text-red-30";
       default:
-        return 'text-gray-300';
+        return "text-gray-30";
     }
   };
 
@@ -79,96 +79,94 @@ export default function MatchStatsPage({ params }) {
   return (
     <>
       {/* Back Navigation */}
-      <div className="max-w-5xl mx-auto px-4 py-4">
-        <Link 
-          href="/fixtures" 
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-[#36053A] transition-colors font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Fixtures
-        </Link>
-      </div>
 
       {/* Header with match result */}
-      <div className="rounded-lg custom-gradient-4 p-6 mb-2 flex flex-col items-center">
-        <div className="flex items-center w-full justify-between ">
-            <div className="flex flex-col  items-center flex-1">
-              {match.homeTeam?.logo && (
-                <TeamLogo
-                  logo={match.homeTeam.logo}
-                  alt={match.homeTeam.name}
-                  size={48}
-                  className="mb-1"
-                />
-              )}
-              <span className="text-[12px] md:text-sm font-semibold text-gray-300 text-center">
-                {match.homeTeam.name}
-              </span>
-            </div>
-            <div className=" text-base  md:text-2xl font-bold text-gray-300 mx-4">
-              {match.homeScore} - {match.awayScore}
-            </div>
-            <div className="flex flex-col items-center flex-1">
-              {match.awayTeam?.logo && (
-                <TeamLogo
-                  logo={match.awayTeam.logo}
-                  alt={match.awayTeam.name}
-                  size={48}
-                  className="mb-1"
-                />
-              )}
-              <span className="text-[12px] md:text-sm font-semibold text-gray-300 text-center">
-                {match.awayTeam.name}
-              </span>
-            </div>
-          </div>
-          
-          {/* Match Status */}
-          <div className="mt-2">
-            <span className={`text-sm font-semibold ${getStatusColor(match.status)}`}>
-              {getStatusText(match.status)}
+      <div className=" custom-gradient-4 max-w-4xl mx-auto p-3 pt-5 flex flex-col items-center">
+        <div className="flex items-center w-full justify-between">
+          <div className="flex flex-col items-center flex-1">
+            {match.homeTeam?.logo && (
+              <TeamLogo
+                logo={match.homeTeam.logo}
+                alt={match.homeTeam.name}
+                size={48}
+                className="mb-1"
+              />
+            )}
+            <span className="text-[12px] md:text-sm font-semibold text-gray-300">
+              {match.homeTeam.name}
             </span>
           </div>
-          
-          {/* Goal Scorers Section */}
-          {(match.homeGoalScorers?.length > 0 || match.awayGoalScorers?.length > 0) && (
-            <div className="mt-4 w-full max-w-2xl">
-              <h4 className="text-sm font-semibold text-gray-300 mb-2 text-center">Goal Scorers</h4>
-              <div className="flex justify-between gap-4">
-                {/* Home Team Goal Scorers */}
-                <div className="flex-1">
-                  {match.homeGoalScorers?.length > 0 && (
-                    <div className="space-y-1">
-                      {match.homeGoalScorers.map((scorer, index) => (
-                        <div key={index} className="flex items-center justify-between text-xs text-gray-300">
-                          <span className="font-medium">{scorer.playerName}</span>
-                          <span className="font-bold">{scorer.goals}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                
-                {/* Away Team Goal Scorers */}
-                <div className="flex-1">
-                  {match.awayGoalScorers?.length > 0 && (
-                    <div className="space-y-1">
-                      {match.awayGoalScorers.map((scorer, index) => (
-                        <div key={index} className="flex items-center justify-between text-xs text-gray-300">
-                          <span className="font-medium">{scorer.playerName}</span>
-                          <span className="font-bold">{scorer.goals}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+          <div className="text-base md:text-2xl font-bold text-gray-300 mx-4">
+            {match.homeScore} - {match.awayScore}
+          </div>
+          <div className="flex flex-col items-center flex-1">
+            {match.awayTeam?.logo && (
+              <TeamLogo
+                logo={match.awayTeam.logo}
+                alt={match.awayTeam.name}
+                size={48}
+                className="mb-1"
+              />
+            )}
+            <span className="text-[12px] md:text-sm font-semibold text-gray-300">
+              {match.awayTeam.name}
+            </span>
+          </div>
+        </div>
+
+        {/* Match Status */}
+        <div className="mt-2">
+          <span
+            className={`text-sm font-semibold ${getStatusColor(match.status)}`}
+          >
+            {getStatusText(match.status)}
+          </span>
+        </div>
+
+        {/* Goal Scorers Section */}
+        {(match.homeGoalScorers?.length > 0 ||
+          match.awayGoalScorers?.length > 0) && (
+          <div className="mt-4 w-full  max-w-lg mx-auto">
+            <div className="flex justify-between   gap-4">
+              {/* Home Team Goal Scorers */}
+              <div className="flex-1">
+                {match.homeGoalScorers?.length > 0 && (
+                  <div className="space-y-1">
+                    {match.homeGoalScorers.map((scorer, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center font-montserrat justify-between  text-xs text-gray-300"
+                      >
+                        <span className="font-medium">{scorer.playerName}</span>
+                        <span className="font-bold">{scorer.goals}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Away Team Goal Scorers */}
+              <div className="flex-1">
+                {match.awayGoalScorers?.length > 0 && (
+                  <div className="space-y-1">
+                    {match.awayGoalScorers.map((scorer, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between text-xs px-6 text-gray-300"
+                      >
+                        <span className="font-medium">{scorer.playerName}</span>
+                        <span className="font-bold">{scorer.goals}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
-          )}
-        
+          </div>
+        )}
 
         {/* Tabs - Inside the scores container */}
-        <div className="w-full mt-6">
+        <div className="w-full  ">
           <nav className="flex items-center space-x-1.5 md:space-x-4 font-montserrat py-1">
             {TABS.map((tab) => {
               const isActive = activeTab === tab.value;
@@ -186,7 +184,7 @@ export default function MatchStatsPage({ params }) {
                   {tab.name}
                   {isActive && (
                     <motion.div
-                      className="absolute bottom-0 left-0 -t-0"
+                      className="absolute bottom-0 left-0 -bottom-0.5"
                       layoutId="activeTab"
                       transition={{
                         type: "spring",
@@ -203,19 +201,19 @@ export default function MatchStatsPage({ params }) {
       </div>
 
       {/* Tab Content Containers - Outside the scores container */}
-      <div className="bg-gray-100 rounded-lg p-6">
+      <div className="  max-w-4xl mx-auto md:px-6  bg-gray-100 rounded-lg p-6">
         {activeTab === "stats" && (
           <div className="mt-0">
             <MatchStats match={match} />
           </div>
         )}
-        
+
         {activeTab === "standings" && (
           <div className="mt-0">
             <MatchStandings />
           </div>
         )}
-        
+
         {activeTab === "headtohead" && (
           <div className="mt-0">
             <HeadToHead homeTeam={match.homeTeam} awayTeam={match.awayTeam} />
@@ -224,4 +222,4 @@ export default function MatchStatsPage({ params }) {
       </div>
     </>
   );
-} 
+}

@@ -52,6 +52,23 @@ const Tabs = () => {
     }
   };
 
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'completed':
+        return 'text-green-300';
+      case 'in-progress':
+        return 'text-red-300';
+      case 'scheduled':
+        return 'text-yellow-300';
+      case 'postponed':
+        return 'text-orange-300';
+      case 'cancelled':
+        return 'text-red-300';
+      default:
+        return 'text-gray-300';
+    }
+  };
+
   return (
     <div className="w-full  overflow-x-auto">
 
