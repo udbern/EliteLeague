@@ -60,7 +60,7 @@ const MatchStandings = () => {
   }
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto  bg-white rounded-[15px] p-2  ">
       <table className="w-full font-montserrat text-sm">
         <thead>
           <tr className="border-b border-gray-200">
@@ -78,7 +78,7 @@ const MatchStandings = () => {
         </thead>
         <tbody>
           {standings.map((team, index) => (
-            <tr key={team._id} className="border-b border-gray-100 hover:bg-gray-50">
+            <tr key={team._id} className="border-b text-md border-gray-100 hover:bg-gray-50">
               <td className="py-3 px-2 font-bold text-[#36053A]">{team.position}</td>
               <td className="py-3 px-2">
                 <div className="flex items-center gap-2">
@@ -90,7 +90,7 @@ const MatchStandings = () => {
                       className="w-6 h-6"
                     />
                   )}
-                  <span className="font-semibold text-[#36053A]">{team.name}</span>
+                  <span className="font-semibold   text-[#36053A]">{team.name}</span>
                 </div>
               </td>
               <td className="py-3 px-2 text-center font-semibold">{team.played}</td>

@@ -70,7 +70,7 @@ const Tabs = () => {
   };
 
   return (
-    <div className="w-full  overflow-x-auto">
+    <div className="w-full   overflow-x-auto">
 
       <div className="max-w-5xl mx-auto px-4">
         <nav className="flex items-center space-x-1.5 md:space-x-4 font-montserrat py-1 scrollbar-hide">
@@ -105,7 +105,7 @@ const Tabs = () => {
           
           {/* Competition Selector */}
           {selectedSeason && (
-            <div className="flex items-center">
+            <div className="flex  items-center">
               <Select
                 value={selectedCompetition?._id || ""}
                 onValueChange={handleCompetitionChange}
@@ -128,7 +128,7 @@ const Tabs = () => {
                     />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-white font-montserrat mt-2 shadow-none border border-gray-200">
+                <SelectContent className="bg-white  font-montserrat mt-2 shadow-none border border-gray-200">
                   {competitions.map((competition) => (
                     <SelectItem 
                       key={competition._id} 

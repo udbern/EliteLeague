@@ -30,9 +30,11 @@ export default function MatchStatsPage({ params }) {
 
   if (!match) {
     return (
-      <div className="flex justify-center items-center py-8">
-        <Image src={Load} alt="Loading" className="animate-pulse object-center object-contain" width={30} height={30} />
-      </div>
+      <section className="mb-[12px] font-montserrat pl-4 pr-4 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
+        <div className="flex justify-center items-center py-4">
+          <Image src={Load} alt="Loading" className="animate-pulse object-center object-contain" width={30} height={30} />
+        </div>
+      </section>
     );
   }
 
@@ -81,7 +83,7 @@ export default function MatchStatsPage({ params }) {
       {/* Back Navigation */}
 
       {/* Header with match result */}
-      <div className=" custom-gradient-4 max-w-4xl mx-auto p-3 pt-5 flex flex-col items-center">
+      <div className=" custom-gradient-4 rounded-b-[8px]  max-w-4xl mx-auto p-3 pt-5 flex flex-col items-center">
         <div className="flex items-center w-full justify-between">
           <div className="flex flex-col items-center flex-1">
             {match.homeTeam?.logo && (
@@ -115,9 +117,9 @@ export default function MatchStatsPage({ params }) {
         </div>
 
         {/* Match Status */}
-        <div className="mt-2">
+        <div className="">
           <span
-            className={`text-sm font-semibold ${getStatusColor(match.status)}`}
+            className={`text-xs font-semibold ${getStatusColor(match.status)}`}
           >
             {getStatusText(match.status)}
           </span>
@@ -126,8 +128,8 @@ export default function MatchStatsPage({ params }) {
         {/* Goal Scorers Section */}
         {(match.homeGoalScorers?.length > 0 ||
           match.awayGoalScorers?.length > 0) && (
-          <div className="mt-4 w-full  max-w-lg mx-auto">
-            <div className="flex justify-between   gap-4">
+          <div className="mt-1 w-full  max-w-lg mx-auto">
+            <div className="flex justify-between   gap-2">
               {/* Home Team Goal Scorers */}
               <div className="flex-1">
                 {match.homeGoalScorers?.length > 0 && (
@@ -184,7 +186,7 @@ export default function MatchStatsPage({ params }) {
                   {tab.name}
                   {isActive && (
                     <motion.div
-                      className="absolute bottom-0 left-0 -bottom-0.5"
+                      className="absolute w-full  border left-0 -bottom-0.5"
                       layoutId="activeTab"
                       transition={{
                         type: "spring",
@@ -201,7 +203,7 @@ export default function MatchStatsPage({ params }) {
       </div>
 
       {/* Tab Content Containers - Outside the scores container */}
-      <div className="  max-w-4xl mx-auto md:px-6  bg-gray-100 rounded-lg p-6">
+      <div className="  md:max-w-4xl  mx-auto  md:p-1  rounded-lg p-2 ">
         {activeTab === "stats" && (
           <div className="mt-0">
             <MatchStats match={match} />

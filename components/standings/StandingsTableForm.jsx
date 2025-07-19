@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { TableHeader, TableCell, FormIndicator } from "./TableHelpers";
-import { urlFor } from "@/lib/sanityClient";
 import TeamLogo from "@/components/ui/TeamLogo";
 
 const StandingsTableForm = ({ data, title }) => {
@@ -16,7 +15,7 @@ const StandingsTableForm = ({ data, title }) => {
   }
 
   return (
-    <section className="mb-[12px] font-montserrat pl-1 pr-1 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
+    <section className="mb-[12px] font-montserrat  pl-1 pr-1 pt-6 pb-[18px] md:pl-6 md:pr-6 bg-white rounded-[14px] overflow-hidden backdrop-blur-sm">
       <div className="overflow-x-auto">
         <table className="w-full font-montserrat font-semibold text-[10px] sm:text-xs md:text-sm">
           <thead>

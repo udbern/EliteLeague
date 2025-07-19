@@ -47,7 +47,7 @@ export default function StandingsTable({ showFull = false, view = "full" }) {
 
   if (!isMounted) {
     return (
-      <section className="mb-[12px]  ">
+      <section className="mb-[12px]   ">
         <div className="bg-white rounded-lg  overflow-hidden backdrop-blur-sm">
           <div className="overflow-x-auto">
             <table className="w-full ">

@@ -1,6 +1,6 @@
 export const TableHeader = ({ children, className = "" }) => (
   <th
-    className={`px-1.5 sm:px-3 md:px-4 py-2 sm:py-3 text-center text-[12px] sm:text-base md:text-lg font-semibold text-[#36053A]/80 ${className}`}
+    className={`px-1 sm:px-3 md:px-4 py-2 sm:py-3 text-center text-[12px] sm:text-base md:text-lg font-semibold text-[#36053A]/80 ${className}`}
   >
     {children}
   </th>
@@ -8,7 +8,7 @@ export const TableHeader = ({ children, className = "" }) => (
 
 export const TableCell = ({ children, className = "", ...props }) => (
   <td
-    className={`px-1.5 sm:px-3 md:px-4 py-2 sm:py-3 text-[12px] sm:text-base md:text-lg text-center text-[#36053A]/80 ${className}`}
+    className={`px-1 sm:px-3 md:px-4 py-2 sm:py-3  text-[12px] sm:text-base md:text-lg text-center text-[#36053A]/80 ${className}`}
     {...props}
   >
     {children}

@@ -61,7 +61,7 @@ const HeadToHead = ({ homeTeam, awayTeam }) => {
   return (
     <div className="space-y-6">
       {/* Head-to-Head Summary */}
-      <div className="bg-white rounded-lg p-4 border border-gray-200">
+      <div className="bg-white rounded-[15px] p-4">
         <h4 className="text-lg font-bold text-[#36053A] mb-4 text-center">Head-to-Head Summary</h4>
         
         <div className="flex items-center justify-between mb-4">

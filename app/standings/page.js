@@ -47,7 +47,7 @@ export default function StandingsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4  py-10 flex justify-center font-semibold font-montserrat">
+    <div className="container mx-auto px-2  py-10 flex justify-center font-semibold font-montserrat">
       <div className="w-full md:w-[50rem]">
         <Tabs defaultValue="short" value={activeTab} onValueChange={setActiveTab} className="mb-8">
           <TabsList className="bg-white/80 backdrop-blur-sm p-1 rounded-lg">

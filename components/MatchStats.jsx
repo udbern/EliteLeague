@@ -94,8 +94,8 @@ const MatchStats = ({ match }) => {
   ];
 
   return (
-    <div className="max-w-5xl md:max-w-4xl  mx-auto py-6 px-2 md:px-6 font-montserrat bg-gray-100 rounded-[15px] min-h-screen">
-      <div className=" rounded-lg  p-4 md:p-6">
+    <div className=" md:max-w-4xl w-full  mx-auto py-6 px-2  font-montserrat bg-white rounded-[15px] min-h-screen">
+      <div className=" rounded-lg  p-2 md:p-6">
         
 
         {/* Match Facts Section */}

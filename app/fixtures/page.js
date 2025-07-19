@@ -108,7 +108,7 @@ export default function FixturesPage() {
 
   // Regular fixtures view for league and other competitions
   return (
-    <div className="container mx-auto px-4 py-10 flex justify-center font-semibold font-montserrat">
+    <div className="container mx-auto px-2 py-10 flex justify-center font-semibold font-montserrat">
       <div className="bg-white rounded-[14px] w-full md:w-[50rem] p-4">
         <div className="flex justify-center items-center mt-6 mb-10">
           <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
